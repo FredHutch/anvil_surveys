@@ -1,0 +1,664 @@
+---
+theme-settings:
+  theme: default
+  barposition: top
+  footer-left: 'Made with [surveydown](https://surveydown.org)'
+  footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/fhdsl/anvil_surveys/tree/sota2026)'
+
+survey-settings:
+  mode: preview
+  show-previous: yes
+  start-page: welcome
+  use-cookies: no #update after building
+  auto-scroll: no
+  rate-survey: no
+  system-language: en
+  highlight-unanswered: yes
+  highlight-color: blue
+  capture-metadata: yes
+  all-required: yes
+  all-shuffled: no
+
+system-messages:
+  cancel: Cancel
+  confirm-exit: Confirm Exit
+  sure-exit: Are you sure you want to exit the survey?
+  submit-exit: Submit and Exit
+  warning: Warning
+  required: Please answer all required questions before proceeding.
+  rating-title: Before you go...
+  rating-text: 'Rate your survey experience:'
+  rating-scale: from 1-poor to 5-excellent
+  previous: Previous
+  next: Next
+  exit: Exit Survey
+  close-tab: Please close this tab manually to exit the survey.
+  choose-option: Choose an option...
+  click: Click here
+  redirect: Redirecting in
+  seconds: seconds
+  new-tab: Opens in a new tab
+  redirect-error: "Error: This text won't trigger any redirection..."
+---
+
+```{r}
+library(surveydown)
+```
+
+::: {.sd_page id=welcome}
+
+# State of the AnVIL 2026
+
+<!-- include logo -->
+
+Add background info on the poll
+
+:::
+
+::: {.sd_page id=page2}
+
+## Demographics
+
+```{r}
+
+sd_question(
+  type   = 'mc',
+  id     = 'role',
+  label  = 'What is your career stage/position?',
+  option = c(
+    'Student (undergraduate, graduate, or medical)' = 'student',
+    'Postdoc' = 'postdoc',
+    'Academic (professor or principal investigator)' = 'academic',
+    'Service (staff scientist, research assistant, bioinformatician, program administrator)' = 'service',
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type   = 'text',
+  id     = 'role_other',
+  label  = 'Please describe your "Other" career stage/position.'
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'institution_affil',
+  label  = 'What type of institution are you affiliated with?',
+  option = c(
+    'Research Intensive Institution' = 'research',
+    'Teaching Focused Institution' = 'teaching',
+    'Hospital/Medical Center or School' = 'clinical',
+    'Industry' = 'industry',
+    'Government' = 'gov',
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type   = 'text',
+  id     = 'institution_affil_other',
+  label  = 'Please describe your "Other" institutional affiliation.'
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'team_member',
+  label  = 'Are you currently part of the AnVIL Internal Team?',
+  option = c(
+    'Yes' = '1', #send to page 3
+    'No'  = '0' #send to next question
+  )
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'user_description',
+  label  = 'Which statement best describes your awareness and current usage of the AnVIL Platform?',
+  option = c(
+    'I have never heard of AnVIL.' = 'unaware',
+    'I have heard of AnVIL, but never used it.' = 'aware_unused',
+    'I have explored or trained on AnVIL, but have not used it for my work/research.' = 'aware_explore',
+    'I have previously used AnVIL for my work/research, but do not currently.' = 'aware_previous',
+    'I currently use  AnVIL for my work/research.' = 'aware_current'
+  )
+)
+
+sd_nav()
+
+```
+
+:::
+
+::: {.sd_page id=page3}
+
+## Utilization of the AnVIL Platform
+
+This section asks some general questions about your use of the AnVIL platform.
+
+```{r}
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'why_description',
+  label  = 'Why do you use the AnVIL platform? (select all that apply)',
+  option = c(
+    'I am a member of a genomics or clinical consortium that utilizes the AnVIL.' = 'consortium',
+    'I am required to.' = 'required',
+    "To comply with the NIH’s Data Management and Sharing policies." = 'dms',
+    'To work collaboratively' = 'collab',
+    'To make my work more transparent or reproducible' = 'reproducibility',
+    'I tried it out and generally liked it/found it met my needs' = 'tried_liked',
+    'Because of specific feature(s) the platform offers (e.g., data access, tools, workflows, computing resources, etc.)' = 'specific_feat',
+    'It was recommended/my colleague(s) use it' = 'community_rec',
+    'My institution supports its use' = 'institutional_support',
+    'It is more affordable than other options' = 'affordability',
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'why_description_other',
+  label  = 'Please describe your "Other" reason for using the AnVIL Platform.'
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'consortia_analysis',
+  label  = 'Does your consortium run analyses with the AnVIL?',
+  option = c(
+    'Yes' = '1',
+    'No' = '0'
+  )
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'consortia_data',
+  label  = 'Does your consortium use the AnVIL to store or release data?',
+  option = c(
+    'Yes' = '1',
+    'No'  = '0'
+  )
+)
+
+sd_question(
+  type  = 'text',
+  id    = 'consortia_affil',
+  label = 'Please list your relevant consortia affiliations.'
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'length_of_use',
+  label  = 'How long have you been using the AnVIL platform?',
+  option = c(
+    '< 1 year' = '0',
+    '1-2 years' = '1',
+    '2-3 years' = '2',
+    '3-4 years' = '3',
+    '4-5 years' = '4',
+    '5-6 years' = '5',
+    '6+ years' = '6'
+  )
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'rec_likelihood',
+  label  = 'How likely are you to recommend the AnVIL to a colleague?',
+  option = c(
+    '1 (Not at all likely)' = '1',
+    '2' = '2',
+    '3' = '3',
+    '4' = '4',
+    '5 (Extremely likely)' = '5'
+  )
+)
+
+sd_nav(page_next = 'page4')
+
+```
+:::
+
+::: {.sd_page id=page4}
+
+## Specific Use
+
+**The next sets of questions ask specifically how you tend to utilize the AnVIL platform**:
+
+### Data submission
+
+```{r}
+
+sd_question(
+  type   = 'mc',
+  id     = 'use_submit_data',
+  label  = 'Do you submit or manage data (e.g., for a consortium or lab)?',
+  option = c(
+    'Yes' = '1',
+    'No' = '0',
+    'Unsure' = '99' #don't ask about anything
+  )
+)
+
+#what additional questions should go here?
+##ease and efficiency of data submission? (1 to 5 easy, 1 to 5 efficient, 1 to 5 understandable and well documented)
+##type of data being submitted? raw vs processed/summarized -- what are they more likely to submit
+##process understandable or documentation needs? -- what barriers or issues do they face open text area if they rank a 4 or 5 for any of the 3 above? Might be better to have them share any additional thoughts on the questions above.
+
+sd_nav(page_next = 'page5')
+```
+
+:::
+
+::: {.sd_page id=page5}
+
+### Group support
+
+```{r}
+
+sd_question(
+  type   = 'mc',
+  id     = 'use_support',
+  label  = 'Do you perform group support tasks (e.g., managing or tracking billing)?',
+  option = c(
+    'Yes' = '1',
+    'No' = '0'
+  )
+)
+
+sd_question(
+  type = 'mc',
+  id   = 'tracking_costs_comfort',
+  label = 'How much do you agree or disagree with the following statement? **I feel comfortable managing or tracking costs.**',
+  option = c(
+    '1: Strongly agree' = '1',
+    '2' = '2',
+    '3: Neither agree nor disagree' = '3',
+    '4' = '4',
+    '5: Strongly disagree' = '5'
+  )
+)
+#standardize throughout that if 1 is good, it's good everywhere
+
+
+sd_question(
+  type = 'text',
+  id = 'tracking_costs_explain',
+  label = 'Please provide a description for your rating regarding your comfort level for managing or tracking costs as well as any requests you have to better manage or track costs.'
+)
+
+
+sd_nav(page_next = 'page6')
+
+```
+
+:::
+
+
+::: {.sd_page id=page6}
+
+### Running analyses
+
+```{r}
+
+sd_question(
+  type   = 'mc',
+  id     = 'use_interactive',
+  label  = 'Do you run interactive analyses (e.g., using Galaxy in AnVIL, Jupyter Notebooks, RStudio)?',
+  option = c(
+    'Yes' = '1',
+    'No' = '0',
+    'Unsure' = '99'
+  )
+)
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'which_interactive_use_anvil',
+  label  = 'Which interactive analysis solutions do you utilize **on the AnVIL**? (select all that apply)',
+  option = c(
+    'Jupyter Notebooks' = 'jupyter_notebooks',
+    'RStudio' = 'rstudio',
+    'Galaxy in AnVIL' = 'galaxy'
+  )
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'which_interactive_use_separate',
+  label  = 'Which interactive analysis solutions do you utilize **separate from the AnVIL**?',
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'use_workflows',
+  label  = 'Do you run scalable workflows (e.g., WDL)?',
+  option = c(
+    'Yes' = '1',
+    'No' = '0',
+    'Unsure' = '99'
+  )
+)
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'whose_data_use',
+  label  = 'Do you bring your own data to the AnVIL or use AnVIL hosted datasets? (select all that apply)',
+  option = c(
+    'Bring my own data' = 'own_data',
+    'Use AnVIL hosted datasets' = 'anvil_data'
+  )
+)
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'anvil_data_type',
+  label  = 'Do you access raw data (e.g., sequencing reads) or summarized data (e.g., count tables, variant calls, etc.)? (select all that apply)',
+  option = c(
+    'Raw data' = 'raw',
+    'Summarized data' = 'summarized'
+  )
+)
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'anvil_data_control',
+  label  = 'Do you utilize AnVIL hosted open-access or controlled-access datasets? (select all that apply)',
+  option = c(
+    'AnVIL hosted open-access datasets' = 'open_access',
+    'AnVIL hosted controlled-access datasets' = 'controlled_access'
+  )
+)
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'controlled_datasets_use',
+  label  = 'Which of the following large, controlled-access datasets do you use on the AnVIL?',
+  option = c(
+    'Centers for Common Disease Genomics (CCDG)' = 'ccdg',
+    'The Centers for Mendelian Genomics (CMG)' = 'cmg',
+    'Clinical Sequencing Evidence-Generating Research' = 'cser',
+    'Electronic Medical Records and Genomics (eMERGE)' = 'emerge',
+    'Gabriella Miller Kids First (GMKF)' = 'gmkf',
+    'Genomics Research to Elucidate the Genetics of Rare Diseases (GREGoR)' = 'gregor',
+    'The Human Pangenome Reference Consortium (HPRC)' = 'hprc',
+    'Population Architecture Using Genomics and Epidemiology (PAGE)' = 'page',
+    'Undiagnosed Disease Network (UDN)' = 'udn',
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type  = 'text',
+  id    = 'controlled_datasets_use_other',
+  label = 'What "Other" large, controlled-access datasets do you use on the AnVIL?'
+)
+
+sd_question(
+  type = 'mc',
+  id = 'services_use',
+  label = 'Do you use data services (e.g., All of Us + AnVIL Imputation)?',
+  option = c(
+    'Yes' = '1',
+    'No' = '0'
+  )
+)
+
+sd_nav(page_next = 'page7')
+
+```
+
+:::
+
+::: {.sd_page id=page7}
+
+### Group supervision
+
+```{r}
+
+sd_question(
+  type   = 'mc',
+  id     = 'use_supervise',
+  label  = 'Do you supervise (e.g., plan and monitor) the use of the AnVIL platform by others rather than only running analyses or submitting data yourself?',
+  option = c(
+    'Yes' = '1',
+    'No' = '0'
+  )
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'use_supervise_efficiency',
+  label  = 'How much do you agree or disagree with the following statement? **The AnVIL allows my team to work more efficiently**.',
+  option = c(
+    '1: Strongly agree' = '1',
+    '2' = '2',
+    '3: Neither agree nor disagree' = '3',
+    '4' = '4',
+    '5: Strongly disagree' = '5'
+  )
+)
+
+sd_question(
+  type = 'mc',
+  id   = 'use_supervise_collab_secure',
+  label = 'How much do you agree or disagree with the following statement? **The AnVIL has been an asset for my team to work more collaboratively with secure data**.',
+  option = c(
+    '1: Strongly agree' = '1',
+    '2' = '2',
+    '3: Neither agree nor disagree' = '3',
+    '4' = '4',
+    '5: Strongly disagree' = '5'
+  )
+)
+
+
+
+sd_question(
+  type   = 'mc',
+  id     = 'supervise_provide_resources',
+  label  = 'How much do you agree or disagree with the following statement? **The AnVIL platform provide resources (computational or data) that would otherwise not be available to my team**.',
+  option = c(
+    '1: Strongly agree' = '1',
+    '2' = '2',
+    '3: Neither agree nor disagree' = '3',
+    '4' = '4',
+    '5: Strongly disagree' = '5'
+  )
+)
+
+sd_nav(page_next = 'page8')
+```
+
+:::
+
+
+::: {.sd_page id=page8}
+
+### Educational support
+
+```{r}
+
+sd_question(
+  type   = 'mc',
+  id     = 'use_ed',
+  label  = 'Do you use the AnVIL platform within training or courses that you are leading?',
+  option = c(
+    'Yes' = '1',
+    'No' = '0'
+  )
+)
+
+#do we have any direct questions for them? Ask them what they are using specifically -- interactive, workflows, what data they are working with?
+
+
+#A nicer way to ask them what barriers they have encountered in a textarea box
+
+sd_nav(page_next = 'page9')
+
+```
+
+:::
+
+::: {.sd_page id=page9}
+
+### Training needs
+
+```{r}
+
+sd_question(
+  type   = 'mc',
+  id     = 'training_need',
+  label  = 'How necessary, if at all, is up-to-date, formal support (e.g., documentation, training, support forum) for your continued and effective use of the AnVIL Platform?',
+  option = c(
+    '1: Extremely necessary' = '1',
+    '2' = '2',
+    '3: Neither necessary or unnecessary' = '3',
+    '4' = '4',
+    '5: Extremely unnecessary' = '5'
+  )
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'confident_find_help',
+  label  = 'Do you feel confident that you would know where to look to find help?',
+  option = c(
+    '5: Yes, extremely confident' = '5',
+    '4' = '4',
+    '3: Neither confident or unconfident' = '3',
+    '2' = '2',
+    '1: No, extremely unconfident' = '1'
+  )
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'demos',
+  label  = 'Have you attended a monthly AnVIL Demo?',
+  option = c(
+    'Yes, multiple' = 'multiple',
+    'Yes, one'      = 'one',
+    'Not yet, but am registered to' = 'registered',
+    'No, but aware of' = 'aware',
+    'No, did not know of' = 'unaware'
+  )
+)
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'support_forum',
+  label  = 'Have you ever read or posted in our AnVIL Support Forum? (select all that apply)',
+  option = c(
+    "Read through others' posts" = 'read_posts',
+    'Posted in' = 'posted',
+    "Answered someone's post" = 'answered_post',
+    'No, but aware of' = 'aware',
+    'No, did not know of' = 'unaware'
+  )
+)
+
+sd_question(
+  type   = 'matrix',
+  id     = 'preferred_learning',
+  label  = 'Please rank your preferred methods of learning for the AnVIL platform.',
+  row    = c(
+    'Video tutorials' = 'video',
+    'Guided documentation' = 'docs',
+    'Live Demos' = 'demos',
+    'Workshops' = 'workshops',
+    'Support forum' = 'forum',
+    'Office hours' = 'office_hours',
+    'Other' = 'other'
+  ),
+  option = c(
+    '1 (Most preferred in this list)' = '1',
+    '2' = '2',
+    '3' = '3',
+    '4' = '4',
+    '5' = '5',
+    '6' = '6',
+    '7 (Least preferred in this list)' = '7'
+  )
+)
+
+sd_question(
+  type   = 'text',
+  id     = 'preferred_learning_other_specify',
+  label  = 'What "Other" methods of learning do you prefer?'
+)
+
+sd_nav(page_next = 'end')
+
+```
+
+:::
+
+::: {.sd_page id=page10}
+
+## Previous Users
+
+```{r}
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'why_description_previous',
+  label  = 'Why did you previously use the AnVIL?',
+  option = c(
+    'Consortia Affiliation' = 'consortium',
+    'I was required to' = 'required',
+    "To comply with the NIH's Data Management and Sharing policies." = 'dms',
+    'To work collaboratively' = 'collab',
+    'Made my work more transparent or reproducible' = 'reproducibility',
+    'I tried it out and generally liked it/found it met my needs' = 'tried_liked',
+    'Because of specific feature(s) the platform offered (e.g., data access, tools, workflows, computing resources, etc.)' = 'specific_feat',
+    'It was recommended/my colleague(s) used it' = 'community_rec',
+    'My institution supported its use' = 'institutional_support',
+    'It was more affordable than other options' = 'affordability',
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'why_description_previous_other',
+  label  = 'Please describe your "Other" reason for previously using the AnVIL Platform.'
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'previous_use_changes',
+  label  = 'What changed that made you stop using the AnVIL?'
+)
+
+sd_nav(page_next = 'page11')
+
+```
+
+:::
+
+::: {.sd_page id=page11}
+
+## Potential Users
+
+```{r}
+
+
+sd_nav(page_next = 'end')
+
+```
+
+:::
+
+::: {.sd_page id=screenout}
+
+
+:::
+
+::: {.sd_page id=end}
+
+Thank you for your responses!
+
+:::

@@ -1,0 +1,86 @@
+# Package setup --------------------------------
+
+# Install required packages:
+# ! Comment out when deploying to rsconnect
+# install.packages("pak
+# pak::pak("surveydown-dev/surveydown)
+
+# Load packages
+library(surveydown)
+
+# Database setup --------------------------------------------------------------
+#
+# Details at: https://surveydown.org/docs/storing-data
+#
+# surveydown stores data on any PostgreSQL database. We recommend
+# https://supabase.com/ for a free and easy to use service.
+#
+# Once you have your database ready, run the following function to store your
+# database configuration parameters in a local .env file:
+#
+# sd_db_config()
+#
+# Once your parameters are stored, you are ready to connect to your database.
+# For this demo, we set ignore = TRUE in the following code, which will ignore
+# the connection settings and won't attempt to connect to the database. This is
+# helpful if you don't want to record testing data in the database table while
+# doing local testing. Once you're ready to collect survey responses, set
+# ignore = FALSE or just delete this argument.
+
+db <- sd_db_connect()
+
+# UI setup --------------------------------------------------------------------
+
+ui <- sd_ui()
+
+# Server setup ----------------------------------------------------------------
+
+server <- function(input, output, session) {
+
+  sd_show_if(
+    #page 1 send to screenout if necessary
+    #page 2 Demographics
+    input$role == "other" ~ "role_other",
+    input$institution_affil == "other" ~ "institution_affil_other",
+    input$team_member == "1" ~ "page4",
+    input$team_member == "0" ~ "user_description",
+    input$user_description == "unaware" ~ "page11",
+    input$user_description == "aware_explore" ~ "page11",
+    input$user_description == "aware_unused" ~ "page11",
+    input$user_description == "aware_previous" ~ "page10",
+    input$user_description == "aware_current" ~ "page3",
+    #page 3 Utilization
+    "other" %in% input$why_description ~ "why_description_other",
+    "consortium" %in% input$why_description ~ "consortia_analysis",
+    "consortium" %in% input$why_description ~ "consortia_data",
+    "consortium" %in% input$why_description ~ "consortia_affil",
+    #page 4 specific use data submission
+    #page 5 specific use group support
+    input$use_support == "1" ~ "tracking_costs_comfort",
+    input$use_support == "1" ~ "tracking_costs_explain",
+    #page 6 specific us running analyses
+    input$use_interactive == "1" ~ "which_interactive_use_anvil",
+    input$use_interactive == "1" ~ "which_interactive_use_separate",
+    (input$use_interactive == "1" | input$use_workflows == "1") ~ "whose_data_use",
+    "anvil_data" %in% input$whose_data_use ~ "anvil_data_type",
+    "anvil_data" %in% input$whose_data_use ~ "anvil_data_control",
+    "controlled_access" %in% input$anvil_data_control ~ "controlled_datasets_use",
+    "other" %in% input$controlled_datasets_use ~ "controlled_datasets_use_other",
+    #page 7 group supervision
+    input$use_supervise == "1" ~ "use_supervise_efficiency",
+    input$use_supervise == "1" ~ "use_supervise_collab_secure",
+    input$use_supervise == "1" ~ "supervise_provide_resources",
+    #page8 educational support
+    #page9 training needs
+    as.numeric(input$preferred_learning_other) < 4 ~ "preferred_learning_other_specify",
+    #page10 previous users
+    "other" %in% input$why_description_previous ~ "why_description_previous_other"
+    #page11 potential users
+  )
+
+  sd_server(db = db)
+
+}
+
+# Launch the app
+shiny::shinyApp(ui = ui, server = server)
