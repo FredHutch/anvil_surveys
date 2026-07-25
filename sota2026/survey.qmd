@@ -53,7 +53,27 @@ library(surveydown)
 
 Add background info on the poll
 
+```{r}
+
+sd_nav(page_next = "page2", show_previous = FALSE)
+
+```
+
 :::
+
+::: {.sd_page id=screenout}
+
+## Thank you for your interest!
+
+Unfortunately, you do not meet the eligibility requirements for this survey.
+
+```{r}
+sd_close()
+```
+
+
+:::
+
 
 ::: {.sd_page id=page2}
 
@@ -123,13 +143,11 @@ sd_question(
   )
 )
 
-sd_nav()
-
 ```
 
 :::
 
-::: {.sd_page id=page3}
+::: {.sd_page id=page3a}
 
 ## Utilization of the AnVIL Platform
 
@@ -216,12 +234,68 @@ sd_question(
   )
 )
 
-sd_nav(page_next = 'page4')
+sd_nav(page_next = 'page4b')
 
 ```
 :::
 
-::: {.sd_page id=page4}
+::: {.sd_page id=page3b}
+
+## Previous Users
+
+```{r}
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'why_description_previous',
+  label  = 'Why did you previously use the AnVIL?',
+  option = c(
+    'Consortia Affiliation' = 'consortium',
+    'I was required to' = 'required',
+    "To comply with the NIH's Data Management and Sharing policies." = 'dms',
+    'To work collaboratively' = 'collab',
+    'Made my work more transparent or reproducible' = 'reproducibility',
+    'I tried it out and generally liked it/found it met my needs' = 'tried_liked',
+    'Because of specific feature(s) the platform offered (e.g., data access, tools, workflows, computing resources, etc.)' = 'specific_feat',
+    'It was recommended/my colleague(s) used it' = 'community_rec',
+    'My institution supported its use' = 'institutional_support',
+    'It was more affordable than other options' = 'affordability',
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'why_description_previous_other',
+  label  = 'Please describe your "Other" reason for previously using the AnVIL Platform.'
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'previous_use_changes',
+  label  = 'What changed that made you stop using the AnVIL?'
+)
+
+sd_nav(page_next = 'page4a')
+
+```
+
+:::
+
+::: {.sd_page id=page4a}
+
+## Potential Users
+
+```{r}
+
+
+sd_nav(page_next = 'end')
+
+```
+
+:::
+
+::: {.sd_page id=page4b}
 
 ## Specific Use
 
@@ -596,69 +670,12 @@ sd_nav(page_next = 'end')
 
 :::
 
-::: {.sd_page id=page10}
-
-## Previous Users
-
-```{r}
-
-sd_question(
-  type   = 'mc_multiple',
-  id     = 'why_description_previous',
-  label  = 'Why did you previously use the AnVIL?',
-  option = c(
-    'Consortia Affiliation' = 'consortium',
-    'I was required to' = 'required',
-    "To comply with the NIH's Data Management and Sharing policies." = 'dms',
-    'To work collaboratively' = 'collab',
-    'Made my work more transparent or reproducible' = 'reproducibility',
-    'I tried it out and generally liked it/found it met my needs' = 'tried_liked',
-    'Because of specific feature(s) the platform offered (e.g., data access, tools, workflows, computing resources, etc.)' = 'specific_feat',
-    'It was recommended/my colleague(s) used it' = 'community_rec',
-    'My institution supported its use' = 'institutional_support',
-    'It was more affordable than other options' = 'affordability',
-    'Other' = 'other'
-  )
-)
-
-sd_question(
-  type   = 'textarea',
-  id     = 'why_description_previous_other',
-  label  = 'Please describe your "Other" reason for previously using the AnVIL Platform.'
-)
-
-sd_question(
-  type   = 'textarea',
-  id     = 'previous_use_changes',
-  label  = 'What changed that made you stop using the AnVIL?'
-)
-
-sd_nav(page_next = 'page11')
-
-```
-
-:::
-
-::: {.sd_page id=page11}
-
-## Potential Users
-
-```{r}
-
-
-sd_nav(page_next = 'end')
-
-```
-
-:::
-
-::: {.sd_page id=screenout}
-
-
-:::
-
 ::: {.sd_page id=end}
 
 Thank you for your responses!
+
+```{r}
+sd_close()
+```
 
 :::

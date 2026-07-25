@@ -27,7 +27,8 @@ library(surveydown)
 # doing local testing. Once you're ready to collect survey responses, set
 # ignore = FALSE or just delete this argument.
 
-db <- sd_db_connect()
+db <- sd_db_connect(ignore = TRUE)
+#db <- sd_db_connect()
 
 # UI setup --------------------------------------------------------------------
 
@@ -42,14 +43,14 @@ server <- function(input, output, session) {
     #page 2 Demographics
     input$role == "other" ~ "role_other",
     input$institution_affil == "other" ~ "institution_affil_other",
-    input$team_member == "1" ~ "page4",
+    input$team_member == "1" ~ "page4b",
     input$team_member == "0" ~ "user_description",
-    input$user_description == "unaware" ~ "page11",
-    input$user_description == "aware_explore" ~ "page11",
-    input$user_description == "aware_unused" ~ "page11",
-    input$user_description == "aware_previous" ~ "page10",
-    input$user_description == "aware_current" ~ "page3",
-    #page 3 Utilization
+    input$user_description == "aware_current" ~ "page3a",
+    input$user_description == "aware_previous" ~ "page3b",
+    input$user_description == "aware_explore" ~ "page4a",
+    input$user_description == "aware_unused" ~ "page4a",
+    input$user_description == "unaware" ~ "page4a",
+    #page 3a Utilization
     "other" %in% input$why_description ~ "why_description_other",
     "consortium" %in% input$why_description ~ "consortia_analysis",
     "consortium" %in% input$why_description ~ "consortia_data",
@@ -73,9 +74,9 @@ server <- function(input, output, session) {
     #page8 educational support
     #page9 training needs
     as.numeric(input$preferred_learning_other) < 4 ~ "preferred_learning_other_specify",
-    #page10 previous users
+    #page3b previous users
     "other" %in% input$why_description_previous ~ "why_description_previous_other"
-    #page11 potential users
+    #page3c potential users
   )
 
   sd_server(db = db)
