@@ -9,15 +9,15 @@ survey-settings:
   mode: preview
   show-previous: yes
   start-page: welcome
-  use-cookies: no #update after building
-  auto-scroll: no
-  rate-survey: no
+  use-cookies: false #update after building
+  auto-scroll: false
+  rate-survey: false
   system-language: en
-  highlight-unanswered: yes
+  highlight-unanswered: true
   highlight-color: blue
-  capture-metadata: yes
-  all-required: yes
-  all-shuffled: no
+  capture-metadata: true
+  all-required: false
+  all-shuffled: false
 
 system-messages:
   cancel: Cancel
@@ -45,7 +45,7 @@ system-messages:
 library(surveydown)
 ```
 
-::: {.sd_page id=welcome}
+--- welcome
 
 # State of the AnVIL 2026
 
@@ -59,9 +59,7 @@ sd_nav(page_next = "page2", show_previous = FALSE)
 
 ```
 
-:::
-
-::: {.sd_page id=screenout}
+--- screenout
 
 ## Thank you for your interest!
 
@@ -71,11 +69,7 @@ Unfortunately, you do not meet the eligibility requirements for this survey.
 sd_close()
 ```
 
-
-:::
-
-
-::: {.sd_page id=page2}
+--- page2
 
 ## Demographics
 
@@ -145,9 +139,7 @@ sd_question(
 
 ```
 
-:::
-
-::: {.sd_page id=page3}
+--- page3
 
 ## Utilization of the AnVIL Platform
 
@@ -237,9 +229,8 @@ sd_question(
 sd_nav() #this is not going to 4a, this is instead going to 5
 
 ```
-:::
 
-::: {.sd_page id=page4a}
+--- page4a
 
 ## Specific Use: Data submission
 
@@ -266,10 +257,7 @@ sd_question(
 sd_nav(page_next = 'page5')
 ```
 
-:::
-
-
-::: {.sd_page id=page4b}
+--- page4b
 
 ## Potential Users
 
@@ -311,9 +299,7 @@ sd_nav(page_next = 'end')
 
 ```
 
-:::
-
-::: {.sd_page id=page5}
+--- page5
 
 ## Specific Use: Group support
 
@@ -355,10 +341,7 @@ sd_nav(page_next = 'page6')
 
 ```
 
-:::
-
-
-::: {.sd_page id=page6}
+--- page6
 
 ## Specific Use: Running analyses
 
@@ -471,9 +454,7 @@ sd_nav(page_next = 'page7')
 
 ```
 
-:::
-
-::: {.sd_page id=page7}
+--- page7
 
 ## Specific Use: Group supervision
 
@@ -533,10 +514,7 @@ sd_question(
 sd_nav(page_next = 'page8')
 ```
 
-:::
-
-
-::: {.sd_page id=page8}
+--- page8
 
 ## Specific Use: Educational support
 
@@ -561,9 +539,7 @@ sd_nav(page_next = 'page9')
 
 ```
 
-:::
-
-::: {.sd_page id=page9}
+--- page9
 
 ## Training needs
 
@@ -655,14 +631,10 @@ sd_nav(page_next = 'end')
 
 ```
 
-:::
-
-::: {.sd_page id=end}
+--- end
 
 Thank you for your responses!
 
 ```{r}
 sd_close()
 ```
-
-:::
