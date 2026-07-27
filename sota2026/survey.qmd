@@ -7,7 +7,7 @@ theme-settings:
 
 survey-settings:
   mode: preview
-  show-previous: yes
+  show-previous: true
   start-page: welcome
   use-cookies: false #update after building
   auto-scroll: false
@@ -18,7 +18,12 @@ survey-settings:
   capture-metadata: true
   all-required: false
   all-shuffled: false
-
+  required:
+    - role
+    - institution_affil
+    - team_member
+    - user_description
+    
 system-messages:
   cancel: Cancel
   confirm-exit: Confirm Exit
@@ -71,7 +76,7 @@ sd_close()
 
 --- page2
 
-## Demographics
+<!-- Demographics -->
 
 ```{r}
 
@@ -91,7 +96,7 @@ sd_question(
 sd_question(
   type   = 'text',
   id     = 'role_other',
-  label  = 'Please describe your "Other" career stage/position.'
+  label  = 'Please describe your career stage/position.'
 )
 
 sd_question(
@@ -102,8 +107,8 @@ sd_question(
     'Research Intensive Institution' = 'research',
     'Teaching Focused Institution' = 'teaching',
     'Hospital/Medical Center or School' = 'clinical',
-    'Industry' = 'industry',
     'Government' = 'gov',
+    'Industry' = 'industry',
     'Other' = 'other'
   )
 )
@@ -111,7 +116,7 @@ sd_question(
 sd_question(
   type   = 'text',
   id     = 'institution_affil_other',
-  label  = 'Please describe your "Other" institutional affiliation.'
+  label  = 'Please describe your institutional affiliation.'
 )
 
 sd_question(
@@ -129,11 +134,11 @@ sd_question(
   id     = 'user_description',
   label  = 'Which statement best describes your awareness and current usage of the AnVIL Platform?',
   option = c(
-    'I have never heard of AnVIL.' = 'unaware',
-    'I have heard of AnVIL, but never used it.' = 'aware_unused',
+    'I currently use AnVIL for my work/research.' = 'aware_current', #send to page 3
     'I have explored or trained on AnVIL, but have not used it for my work/research.' = 'aware_explore',
     'I have previously used AnVIL for my work/research, but do not currently.' = 'aware_previous',
-    'I currently use  AnVIL for my work/research.' = 'aware_current'
+    'I have heard of AnVIL, but never used it.' = 'aware_unused',
+    'I have never heard of AnVIL.' = 'unaware'
   )
 )
 
@@ -149,18 +154,27 @@ This section asks some general questions about your use of the AnVIL platform.
 
 sd_question(
   type   = 'mc_multiple',
-  id     = 'why_description',
-  label  = 'Why do you use the AnVIL platform? (select all that apply)',
+  id     = 'why_external',
+  label  = 'Which external factors apply to your use of AnVIL? (select all that apply)',
   option = c(
-    'I am a member of a genomics or clinical consortium that utilizes the AnVIL.' = 'consortium',
-    'I am required to.' = 'required',
-    "To comply with the NIH’s Data Management and Sharing policies." = 'dms',
-    'To work collaboratively' = 'collab',
+    'My consortium uses AnVIL' = 'consortium',
+    'My institution or funder requires it' = 'required',
+    "I use it to comply with NIH's Data security policies" = 'dms',
+    'My institution supports or encourages its use' = 'institutional_support',
+    'None of these' = 'none'
+  )
+)
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'why_description',
+  label  = 'Why do you choose to use AnVIL? (select all that apply)',
+  option = c(
+    'To collaborate with others' = 'collab',
     'To make my work more transparent or reproducible' = 'reproducibility',
-    'I tried it out and generally liked it/found it met my needs' = 'tried_liked',
-    'Because of specific feature(s) the platform offers (e.g., data access, tools, workflows, computing resources, etc.)' = 'specific_feat',
-    'It was recommended/my colleague(s) use it' = 'community_rec',
-    'My institution supports its use' = 'institutional_support',
+    'I tried it and it met my needs' = 'tried_liked',
+    'It offers features I need (e.g., data access, tools, workflows, computing resources)' = 'specific_feat',
+    'Recommended by colleagues' = 'community_rec',
     'It is more affordable than other options' = 'affordability',
     'Other' = 'other'
   )
@@ -169,30 +183,30 @@ sd_question(
 sd_question(
   type   = 'textarea',
   id     = 'why_description_other',
-  label  = 'Please describe your "Other" reason for using the AnVIL Platform.'
+  label  = 'Please describe your reason for using AnVIL.'
 )
 
-sd_question(
+sd_question( ### <-- WHAT DO WE HOPE TO LEARN
   type   = 'mc',
   id     = 'consortia_analysis',
-  label  = 'Does your consortium run analyses with the AnVIL?',
+  label  = 'Does your consortium run analyses with AnVIL?',
   option = c(
     'Yes' = '1',
     'No' = '0'
   )
 )
 
-sd_question(
+sd_question( ### <-- WHAT DO WE HOPE TO LEARN
   type   = 'mc',
   id     = 'consortia_data',
-  label  = 'Does your consortium use the AnVIL to store or release data?',
+  label  = 'Does your consortium use AnVIL to store or release data?',
   option = c(
     'Yes' = '1',
     'No'  = '0'
   )
 )
 
-sd_question(
+sd_question( ### <-- WHAT DO WE HOPE TO LEARN
   type  = 'text',
   id    = 'consortia_affil',
   label = 'Please list your relevant consortia affiliations.'
@@ -201,28 +215,26 @@ sd_question(
 sd_question(
   type   = 'mc',
   id     = 'length_of_use',
-  label  = 'How long have you been using the AnVIL platform?',
+  label  = 'How long have you been using AnVIL?',
   option = c(
     '< 1 year' = '0',
     '1-2 years' = '1',
-    '2-3 years' = '2',
-    '3-4 years' = '3',
-    '4-5 years' = '4',
-    '5-6 years' = '5',
+    '2-4 years' = '2',
+    '4-6 years' = '4',
     '6+ years' = '6'
   )
 )
 
 sd_question(
-  type   = 'mc',
+  type   = 'mc_buttons',
   id     = 'rec_likelihood',
-  label  = 'How likely are you to recommend the AnVIL to a colleague?',
+  label  = 'How likely are you to recommend AnVIL to a colleague?',
   option = c(
-    '1 (Not at all likely)' = '1',
-    '2' = '2',
-    '3' = '3',
-    '4' = '4',
-    '5 (Extremely likely)' = '5'
+    "1<br>Not at all<br>likely" = 1,
+    "&emsp;&emsp;2&emsp;&emsp;" = 2,
+    "&emsp;&emsp;3&emsp;&emsp;" = 3,
+    "&emsp;&emsp;4&emsp;&emsp;" = 4, 
+    "5<br>Extremely<br>likely" = 5
   )
 )
 

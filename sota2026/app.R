@@ -48,9 +48,9 @@ server <- function(input, output, session) {
     input$user_description %in% c("aware_previous", "aware_explore", "aware_unused", "unaware") ~ "page4b",
     #page 3a Utilization
     "other" %in% input$why_description ~ "why_description_other",
-    "consortium" %in% input$why_description ~ "consortia_analysis",
-    "consortium" %in% input$why_description ~ "consortia_data",
-    "consortium" %in% input$why_description ~ "consortia_affil",
+    "consortium" %in% input$why_external ~ "consortia_analysis",
+    "consortium" %in% input$why_external ~ "consortia_data",
+    "consortium" %in% input$why_external ~ "consortia_affil",
     #page4b previous use
     input$user_description == "aware_previous" ~ "why_description_previous",
     "other" %in% input$why_description_previous ~ "why_description_previous_other",
