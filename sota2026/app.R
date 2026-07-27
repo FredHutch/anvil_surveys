@@ -27,8 +27,7 @@ library(surveydown)
 # doing local testing. Once you're ready to collect survey responses, set
 # ignore = FALSE or just delete this argument.
 
-db <- sd_db_connect(ignore = TRUE)
-#db <- sd_db_connect()
+db <- sd_db_connect()
 
 # UI setup --------------------------------------------------------------------
 
@@ -45,15 +44,18 @@ server <- function(input, output, session) {
     input$institution_affil == "other" ~ "institution_affil_other",
     input$team_member == "1" ~ "page4a",
     input$team_member == "0" ~ "user_description",
-    input$user_description == "aware_current" ~ "page3a",
-    input$user_description == "aware_previous" ~ "page3b",
-    input$user_description %in% c("aware_explore", "aware_unused", "unaware") ~ "page4b",
+    input$user_description == "aware_current" ~ "page3",
+    input$user_description %in% c("aware_previous", "aware_explore", "aware_unused", "unaware") ~ "page4b",
     #page 3a Utilization
     "other" %in% input$why_description ~ "why_description_other",
     "consortium" %in% input$why_description ~ "consortia_analysis",
     "consortium" %in% input$why_description ~ "consortia_data",
     "consortium" %in% input$why_description ~ "consortia_affil",
-    #page 4 specific use data submission
+    #page4b previous use
+    input$user_description == "aware_previous" ~ "why_description_previous",
+    "other" %in% input$why_description_previous ~ "why_description_previous_other",
+    input$user_description == "aware_previous" ~ "previous_use_changes",
+    #page 4a specific use data submission
     #page 5 specific use group support
     input$use_support == "1" ~ "tracking_costs_comfort",
     input$use_support == "1" ~ "tracking_costs_explain",
@@ -71,10 +73,7 @@ server <- function(input, output, session) {
     input$use_supervise == "1" ~ "supervise_provide_resources",
     #page8 educational support
     #page9 training needs
-    as.numeric(input$preferred_learning_other) < 4 ~ "preferred_learning_other_specify",
-    #page3b previous users
-    "other" %in% input$why_description_previous ~ "why_description_previous_other"
-    #page3c potential users
+    as.numeric(input$preferred_learning_other) < 4 ~ "preferred_learning_other_specify"
   )
 
   sd_server(db = db)
