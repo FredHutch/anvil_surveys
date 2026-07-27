@@ -43,13 +43,11 @@ server <- function(input, output, session) {
     #page 2 Demographics
     input$role == "other" ~ "role_other",
     input$institution_affil == "other" ~ "institution_affil_other",
-    input$team_member == "1" ~ "page4b",
+    input$team_member == "1" ~ "page4a",
     input$team_member == "0" ~ "user_description",
     input$user_description == "aware_current" ~ "page3a",
     input$user_description == "aware_previous" ~ "page3b",
-    input$user_description == "aware_explore" ~ "page4a",
-    input$user_description == "aware_unused" ~ "page4a",
-    input$user_description == "unaware" ~ "page4a",
+    input$user_description %in% c("aware_explore", "aware_unused", "unaware") ~ "page4b",
     #page 3a Utilization
     "other" %in% input$why_description ~ "why_description_other",
     "consortium" %in% input$why_description ~ "consortia_analysis",

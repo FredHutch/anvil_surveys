@@ -234,7 +234,7 @@ sd_question(
   )
 )
 
-sd_nav(page_next = 'page4b')
+sd_nav(page_next = 'page4a') #this is not going to 4a, this is instead going to 5
 
 ```
 :::
@@ -276,7 +276,7 @@ sd_question(
   label  = 'What changed that made you stop using the AnVIL?'
 )
 
-sd_nav(page_next = 'page4a')
+sd_nav(page_next = 'page4b') #this also goes to page 5
 
 ```
 
@@ -284,24 +284,9 @@ sd_nav(page_next = 'page4a')
 
 ::: {.sd_page id=page4a}
 
-## Potential Users
-
-```{r}
-
-
-sd_nav(page_next = 'end')
-
-```
-
-:::
-
-::: {.sd_page id=page4b}
-
-## Specific Use
+## Specific Use: Data submission
 
 **The next sets of questions ask specifically how you tend to utilize the AnVIL platform**:
-
-### Data submission
 
 ```{r}
 
@@ -326,9 +311,23 @@ sd_nav(page_next = 'page5')
 
 :::
 
+
+::: {.sd_page id=page4b}
+
+## Potential Users
+
+```{r}
+
+
+sd_nav(page_next = 'end')
+
+```
+
+:::
+
 ::: {.sd_page id=page5}
 
-### Group support
+## Specific Use: Group support
 
 ```{r}
 
@@ -373,7 +372,7 @@ sd_nav(page_next = 'page6')
 
 ::: {.sd_page id=page6}
 
-### Running analyses
+## Specific Use: Running analyses
 
 ```{r}
 
@@ -488,7 +487,7 @@ sd_nav(page_next = 'page7')
 
 ::: {.sd_page id=page7}
 
-### Group supervision
+## Specific Use: Group supervision
 
 ```{r}
 
@@ -551,7 +550,7 @@ sd_nav(page_next = 'page8')
 
 ::: {.sd_page id=page8}
 
-### Educational support
+## Specific Use: Educational support
 
 ```{r}
 
@@ -578,7 +577,7 @@ sd_nav(page_next = 'page9')
 
 ::: {.sd_page id=page9}
 
-### Training needs
+## Training needs
 
 ```{r}
 
