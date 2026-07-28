@@ -678,7 +678,7 @@ sd_nav(page_next = 'page8')
 sd_question(
   type   = 'mc',
   id     = 'use_ed',
-  label  = 'Do you use the AnVIL platform within training or courses that you are leading?',
+  label  = 'Do you use the AnVIL platform for training or courses that you are leading?',
   option = c(
     'Yes' = 1,
     'No' = 0

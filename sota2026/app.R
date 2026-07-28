@@ -54,8 +54,7 @@ server <- function(input, output, session) {
   sd_skip_if(
     input$team_member == "1" ~ "page4",
     previous_user() ~ "page3b",
-    potential_user() ~ "page3c",
-    input$team_member == "1" ~ "page9"
+    potential_user() ~ "page3c"
   )
   
   sd_show_if(
@@ -110,6 +109,7 @@ server <- function(input, output, session) {
     input$use_ed_satisfaction < 5 ~ "what_would_help_ed",
     
     #page9 training needs
+    input$team_member == "0" ~ "page9",
     as.numeric(input$preferred_learning_other) < 4 ~ "preferred_learning_other_specify"
   )
 
