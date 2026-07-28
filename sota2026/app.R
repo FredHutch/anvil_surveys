@@ -79,6 +79,9 @@ server <- function(input, output, session) {
     "other" %in% input$what_would_help_potential ~ "what_would_help_potential_other",
     
     #page 4 specific use data submission
+    input$use_submit_data == "1" ~ "use_submit_satisfaction",
+    input$use_submit_satisfaction %in% c(1,2,3,4) ~ "what_would_help_submit_satisfaction",
+    
     #page 5 specific use group support
     input$use_support == "1" ~ "tracking_costs_comfort",
     input$use_support == "1" ~ "tracking_costs_explain",

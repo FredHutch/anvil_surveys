@@ -225,15 +225,21 @@ sd_question(
 )
 
 sd_question(
-  type   = 'mc_buttons',
-  id     = 'rec_likelihood',
-  label  = 'How likely are you to recommend AnVIL to a colleague?',
+  type   = 'mc',
+  id     = 'nps_score',
+  label  = 'On a scale of 0–10, how likely are you to recommend AnVIL to a colleague or collaborator?',
   option = c(
-    "1<br>Not at all<br>likely" = 1,
-    "&emsp;&emsp;2&emsp;&emsp;" = 2,
-    "&emsp;&emsp;3&emsp;&emsp;" = 3,
-    "&emsp;&emsp;4&emsp;&emsp;" = 4, 
-    "5<br>Extremely<br>likely" = 5
+    '0 - Not at all likely' = 0,
+    '1' = 1, 
+    '2' = 2, 
+    '3' = 3, 
+    '4' = 4, 
+    '5' = 5,
+    '6' = 6, 
+    '7' = 7, 
+    '8' = 8, 
+    '9' = 9,
+    '10 - Extremely likely' = 10
   )
 )
 
@@ -396,15 +402,27 @@ sd_question(
   )
 )
 
-#what additional questions should go here?
-##ease and efficiency of data submission? (1 to 5 easy, 1 to 5 efficient, 1 to 5 understandable and well documented)
-##type of data being submitted? raw vs processed/summarized -- what are they more likely to submit
-##process understandable or documentation needs? -- what barriers or issues do they face open text area if they rank a 4 or 5 for any of the 3 above? Might be better to have them share any additional thoughts on the questions above.
+sd_question(
+  type   = 'mc',
+  id     = 'use_submit_satisfaction',
+  label  = 'How satisfied are you with AnVIL data submission or management?',
+  option = c(
+    'Very dissatisfied' = '1',
+    'Dissatisfied' = '2',
+    'Neutral' = '3',
+    'Satisfied' = '4',
+    'Very satisfied' = '5'
+  )
+)
+
+sd_question( ## Rephrase?
+  type   = 'textarea',
+  id     = 'what_would_help_submit_satisfaction',
+  label  = 'What would make AnVIL easier or more useful **for your data submission or management work**?'
+)
 
 sd_nav(page_next = 'page5')
 ```
-
-
 
 --- page5
 
