@@ -36,26 +36,49 @@ ui <- sd_ui()
 # Server setup ----------------------------------------------------------------
 
 server <- function(input, output, session) {
-
+  
+  previous_user <- function(){
+    val <- sd_value("user_description")
+    if (is.null(val)) return(FALSE)
+    if (val == "aware_previous") return(TRUE)
+    return(FALSE)
+  }
+  
+  potential_user <- function(){
+    val <- sd_value("user_description")
+    if (is.null(val)) return(FALSE)
+    if (val %in% c("aware_explore", "aware_unused", "unaware")) return(TRUE)
+    return(FALSE)
+  }
+  
+  sd_skip_if(
+    input$team_member == "1" ~ "page4",
+    previous_user() ~ "page3b",
+    potential_user() ~ "page3c"
+  )
+  
   sd_show_if(
     #page 1 send to screenout if necessary
+    
     #page 2 Demographics
     input$role == "other" ~ "role_other",
     input$institution_affil == "other" ~ "institution_affil_other",
-    input$team_member == "1" ~ "page4a",
     input$team_member == "0" ~ "user_description",
-    input$user_description == "aware_current" ~ "page3",
-    input$user_description %in% c("aware_previous", "aware_explore", "aware_unused", "unaware") ~ "page4b",
+    
     #page 3a Utilization
     "other" %in% input$why_description ~ "why_description_other",
     "consortium" %in% input$why_external ~ "consortia_analysis",
     "consortium" %in% input$why_external ~ "consortia_data",
     "consortium" %in% input$why_external ~ "consortia_affil",
-    #page4b previous use
-    input$user_description == "aware_previous" ~ "why_description_previous",
-    "other" %in% input$why_description_previous ~ "why_description_previous_other",
-    input$user_description == "aware_previous" ~ "previous_use_changes",
-    #page 4a specific use data submission
+    
+    #page3b previous use
+    "other" %in% input$why_stopped ~ "why_stopped_other",
+    "other" %in% input$what_would_help_previous ~ "what_would_help_previous_other",
+    
+    #page3c potential use
+    "other" %in% input$what_would_help_potential ~ "what_would_help_potential_other",
+    
+    #page 4 specific use data submission
     #page 5 specific use group support
     input$use_support == "1" ~ "tracking_costs_comfort",
     input$use_support == "1" ~ "tracking_costs_explain",

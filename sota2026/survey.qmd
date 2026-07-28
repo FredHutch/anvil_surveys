@@ -96,7 +96,7 @@ sd_question(
 sd_question(
   type   = 'text',
   id     = 'role_other',
-  label  = 'Please describe your career stage/position.'
+  label  = 'Please describe your "Other" career stage/position.'
 )
 
 sd_question(
@@ -116,7 +116,7 @@ sd_question(
 sd_question(
   type   = 'text',
   id     = 'institution_affil_other',
-  label  = 'Please describe your institutional affiliation.'
+  label  = 'Please describe your "Other" institutional affiliation.'
 )
 
 sd_question(
@@ -124,7 +124,7 @@ sd_question(
   id     = 'team_member',
   label  = 'Are you currently part of the AnVIL Internal Team?',
   option = c(
-    'Yes' = '1', #send to page 4a
+    'Yes' = '1', #skip to page 4
     'No'  = '0' #send to next question
   )
 )
@@ -134,28 +134,27 @@ sd_question(
   id     = 'user_description',
   label  = 'Which statement best describes your awareness and current usage of the AnVIL Platform?',
   option = c(
-    'I currently use AnVIL for my work/research.' = 'aware_current', #send to page 3
-    'I have explored or trained on AnVIL, but have not used it for my work/research.' = 'aware_explore',
-    'I have previously used AnVIL for my work/research, but do not currently.' = 'aware_previous',
-    'I have heard of AnVIL, but never used it.' = 'aware_unused',
-    'I have never heard of AnVIL.' = 'unaware'
+    'I currently use AnVIL for my work/research.' = 'aware_current', #send to next page (No skip logic)
+    'I have explored or trained on AnVIL, but have not used it for my work/research.' = 'aware_explore', #send to page 3b
+    'I have previously used AnVIL for my work/research, but do not currently.' = 'aware_previous', #send to page 3b
+    'I have heard of AnVIL, but never used it.' = 'aware_unused', #send to page 3b
+    'I have never heard of AnVIL.' = 'unaware' #send to page 3b
   )
 )
-
 ```
 
---- page3
+--- page3a
 
-## Utilization of the AnVIL Platform
+<!-- ## Current / General Users -->
 
-This section asks some general questions about your use of the AnVIL platform.
+This section asks some general questions about your use of AnVIL.
 
 ```{r}
 
 sd_question(
   type   = 'mc_multiple',
   id     = 'why_external',
-  label  = 'Which external factors apply to your use of AnVIL? (select all that apply)',
+  label  = 'Do any of the following factor into your use of AnVIL? (select all that apply)',
   option = c(
     'My consortium uses AnVIL' = 'consortium',
     'My institution or funder requires it' = 'required',
@@ -183,7 +182,7 @@ sd_question(
 sd_question(
   type   = 'textarea',
   id     = 'why_description_other',
-  label  = 'Please describe your reason for using AnVIL.'
+  label  = 'Please describe your "Other" reason for using AnVIL.'
 )
 
 sd_question( ### <-- WHAT DO WE HOPE TO LEARN
@@ -238,11 +237,147 @@ sd_question(
   )
 )
 
-sd_nav() #this is not going to 4a, this is instead going to 5
-
+sd_nav(page_next = 'page4')
 ```
 
---- page4a
+--- page3b
+
+<!-- ## Previous Users -->
+
+```{r}
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'why_stopped',
+  label  = 'Why did you stop using AnVIL? (select all that apply)',
+  option = c(
+    'My project or role changed' = 'project_change',
+    'It no longer met my needs' = 'unmet_needs',
+    'I found a different tool or platform that works better for me' = 'switched',
+    'Cost' = 'cost',
+    'Technical or usability issues' = 'technical',
+    'Lack of institutional or funder support' = 'lack_support',
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'why_stopped_other',
+  label  = 'Please describe the "Other" reason you stopped using AnVIL.'
+)
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'what_would_help_previous',
+  label  = 'What would make AnVIL easier or more useful for your work? (select all that apply)',
+  option = c(
+    'Clearer documentation or tutorials' = 'documentation',
+    'A simpler or more intuitive interface' = 'usability',
+    'Lower cost/more funding' = 'cost',
+    'Access to additional datasets' = 'data_access',
+    'Access to additional tools or workflows' = 'tools_workflows',
+    'More training or onboarding resources' = 'training',
+    'Better integration with other platforms I use' = 'integration',
+    "Nothing - I don't need AnVIL right now" = 'no_need',
+    'Nothing — AnVIL already meets my needs' = 'all_met',
+    'None of these' = "none",
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'what_would_help_previous_other',
+  label  = 'Please describe "Other" that would make AnVIL easier or more useful for your work.'
+)
+
+sd_question(
+  type   = 'matrix',  # or mc_multiple??
+  id     = 'platform_priorities_previous',
+  label  = 'When choosing a computing platform for your work, how important are the following?',
+  row = c(
+    'Access to relevant datasets' = 'data_access',
+    'Cost' = 'cost',
+    'Ease of use / learning curve' = 'usability',
+    'Security and compliance (e.g., controlled-access data)' = 'security',
+    'Computing power or scalability' = 'compute_power',
+    'Availability of pre-built tools or workflows' = 'tools_workflows',
+    'Ability to collaborate with others' = 'collaboration',
+    'Institutional or funder requirements' = 'institutional',
+    'Community or peer support' = 'community'
+  ),
+  option = c(
+    "Not a priority" = 1,
+    "Low priority" = 2,
+    "Moderate priority" = 3,
+    "High priority" = 4,
+    "Essential" = 5
+  )
+)
+
+sd_nav(page_next = 'end')
+```
+
+--- page3c
+
+<!-- ## Potential Users -->
+
+```{r}
+
+## Might need to be different for never heard of it. Eg, what is important in a computing platform?
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'what_would_help_potential',
+  label  = 'What would make AnVIL easier or more useful for your work? (select all that apply)',
+  option = c(
+    'Clearer documentation or tutorials' = 'documentation',
+    'A simpler or more intuitive interface' = 'usability',
+    'Lower cost/more funding' = 'cost',
+    'Access to additional datasets' = 'data_access',
+    'Access to additional tools or workflows' = 'tools_workflows',
+    'More training or onboarding resources' = 'training',
+    'Better integration with other platforms I use' = 'integration',
+    "Nothing - I don't need AnVIL right now" = 'no_need',
+    'None of these' = "none",
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'what_would_help_potential_other',
+  label  = 'Please describe "Other" that would make AnVIL easier or more useful for your work.'
+)
+
+sd_question(
+  type   = 'matrix',  # or mc_multiple??
+  id     = 'platform_priorities_potential',
+  label  = 'When choosing a computing platform for your work, how important are the following?',
+  row = c(
+    'Access to relevant datasets' = 'data_access',
+    'Cost' = 'cost',
+    'Ease of use / learning curve' = 'usability',
+    'Security and compliance (e.g., controlled-access data)' = 'security',
+    'Computing power or scalability' = 'compute_power',
+    'Availability of pre-built tools or workflows' = 'tools_workflows',
+    'Ability to collaborate with others' = 'collaboration',
+    'Institutional or funder requirements' = 'institutional',
+    'Community or peer support' = 'community'
+  ),
+  option = c(
+    "Not a priority" = 1,
+    "Low priority" = 2,
+    "Moderate priority" = 3,
+    "High priority" = 4,
+    "Essential" = 5
+  )
+)
+
+sd_nav(page_next = 'end')
+```
+
+--- page4
 
 ## Specific Use: Data submission
 
@@ -269,47 +404,7 @@ sd_question(
 sd_nav(page_next = 'page5')
 ```
 
---- page4b
 
-## Potential Users
-
-```{r}
-
-
-sd_question(
-  type   = 'mc_multiple',
-  id     = 'why_description_previous',
-  label  = 'Why did you previously use the AnVIL?',
-  option = c(
-    'Consortia Affiliation' = 'consortium',
-    'I was required to' = 'required',
-    "To comply with the NIH's Data Management and Sharing policies." = 'dms',
-    'To work collaboratively' = 'collab',
-    'Made my work more transparent or reproducible' = 'reproducibility',
-    'I tried it out and generally liked it/found it met my needs' = 'tried_liked',
-    'Because of specific feature(s) the platform offered (e.g., data access, tools, workflows, computing resources, etc.)' = 'specific_feat',
-    'It was recommended/my colleague(s) used it' = 'community_rec',
-    'My institution supported its use' = 'institutional_support',
-    'It was more affordable than other options' = 'affordability',
-    'Other' = 'other'
-  )
-)
-
-sd_question(
-  type   = 'textarea',
-  id     = 'why_description_previous_other',
-  label  = 'Please describe your "Other" reason for previously using the AnVIL Platform.'
-)
-
-sd_question(
-  type   = 'textarea',
-  id     = 'previous_use_changes',
-  label  = 'What changed that made you stop using the AnVIL?'
-)
-
-sd_nav(page_next = 'end')
-
-```
 
 --- page5
 
