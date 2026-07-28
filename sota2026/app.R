@@ -54,7 +54,8 @@ server <- function(input, output, session) {
   sd_skip_if(
     input$team_member == "1" ~ "page4",
     previous_user() ~ "page3b",
-    potential_user() ~ "page3c"
+    potential_user() ~ "page3c",
+    input$team_member == "1" ~ "page9"
   )
   
   sd_show_if(
@@ -70,6 +71,7 @@ server <- function(input, output, session) {
     "consortium" %in% input$why_external ~ "consortia_analysis",
     "consortium" %in% input$why_external ~ "consortia_data",
     "consortium" %in% input$why_external ~ "consortia_affil",
+    input$nps_score < 7 ~ "nps_score_explain",
     
     #page3b previous use
     "other" %in% input$why_stopped ~ "why_stopped_other",
@@ -79,12 +81,14 @@ server <- function(input, output, session) {
     "other" %in% input$what_would_help_potential ~ "what_would_help_potential_other",
     
     #page 4 specific use data submission
-    input$use_submit_data == "1" ~ "use_submit_satisfaction",
-    input$use_submit_satisfaction %in% c(1,2,3,4) ~ "what_would_help_submit_satisfaction",
+    input$use_submit_data == 1 ~ "use_submit_raw_summarized",
+    input$use_submit_data == 1 ~ "use_submit_satisfaction",
+    input$use_submit_satisfaction < 5 ~ "what_would_help_submit",
     
     #page 5 specific use group support
-    input$use_support == "1" ~ "tracking_costs_comfort",
-    input$use_support == "1" ~ "tracking_costs_explain",
+    input$use_support == 1 ~ "use_support_satisfaction",
+    input$use_support_satisfaction < 5 ~ "what_would_help_use_support",
+    
     #page 6 specific us running analyses
     input$use_interactive == "1" ~ "which_interactive_use_anvil",
     input$use_interactive == "1" ~ "which_interactive_use_separate",
@@ -93,11 +97,18 @@ server <- function(input, output, session) {
     "anvil_data" %in% input$whose_data_use ~ "anvil_data_control",
     "controlled_access" %in% input$anvil_data_control ~ "controlled_datasets_use",
     "other" %in% input$controlled_datasets_use ~ "controlled_datasets_use_other",
+    any(c(input$use_interactive, input$use_workflows, input$services_use) == "1") ~ "analyses_satisfaction",
+    input$analyses_satisfaction < 5 ~ "what_would_help_services",
+    
     #page 7 group supervision
-    input$use_supervise == "1" ~ "use_supervise_efficiency",
-    input$use_supervise == "1" ~ "use_supervise_collab_secure",
-    input$use_supervise == "1" ~ "supervise_provide_resources",
+    input$use_supervise == 1 ~ "use_supervise_questions",
+    input$use_supervise == 1 ~ "use_supervise_satisfaction",
+    input$use_supervise_satisfaction < 5 ~ "what_would_help_supervise",
+    
     #page8 educational support
+    input$use_ed == 1 ~ "use_ed_satisfaction",
+    input$use_ed_satisfaction < 5 ~ "what_would_help_ed",
+    
     #page9 training needs
     as.numeric(input$preferred_learning_other) < 4 ~ "preferred_learning_other_specify"
   )
