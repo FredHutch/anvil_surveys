@@ -123,8 +123,8 @@ sd_question(
   id     = 'team_member',
   label  = 'Are you currently part of the AnVIL Internal Team?',
   option = c(
-    'Yes' = '1', #skip to page 4
-    'No'  = '0' #send to next question
+    'Yes' = 1, #skip to page 4
+    'No'  = 0 #send to next question
   )
 )
 
@@ -189,8 +189,8 @@ sd_question( ### <-- WHAT DO WE HOPE TO LEARN
   id     = 'consortia_analysis',
   label  = 'Does your consortium run analyses with AnVIL?',
   option = c(
-    'Yes' = '1',
-    'No' = '0'
+    'Yes' = 1,
+    'No' = 0
   )
 )
 
@@ -199,8 +199,8 @@ sd_question( ### <-- WHAT DO WE HOPE TO LEARN
   id     = 'consortia_data',
   label  = 'Does your consortium use AnVIL to store or release data?',
   option = c(
-    'Yes' = '1',
-    'No'  = '0'
+    'Yes' = 1,
+    'No'  = 0
   )
 )
 
@@ -403,9 +403,9 @@ sd_question(
   id     = 'use_submit_data',
   label  = 'Do you submit or manage data (e.g., for a consortium or lab)?',
   option = c(
-    'Yes' = '1',
-    'No' = '0',
-    'Unsure' = '99' #don't ask about anything
+    'Yes' = 1,
+    'No' = 0,
+    'Unsure' = 99 #don't ask about anything
   )
 )
 
@@ -493,9 +493,9 @@ sd_question(
   id     = 'use_interactive',
   label  = 'Do you run interactive analyses (e.g., using Galaxy in AnVIL, Jupyter Notebooks, RStudio)?',
   option = c(
-    'Yes' = '1',
-    'No' = '0',
-    'Unsure' = '99'
+    'Yes' = 1,
+    'No' = 0,
+    'Unsure' = 99
   )
 )
 
@@ -521,9 +521,9 @@ sd_question(
   id     = 'use_workflows',
   label  = 'Do you run scalable workflows (e.g., WDL)?',
   option = c(
-    'Yes' = '1',
-    'No' = '0',
-    'Unsure' = '99'
+    'Yes' = 1,
+    'No' = 0,
+    'Unsure' = 99
   )
 )
 
@@ -586,8 +586,8 @@ sd_question(
   id = 'services_use',
   label = 'Do you use data services (e.g., All of Us + AnVIL Imputation)?',
   option = c(
-    'Yes' = '1',
-    'No' = '0'
+    'Yes' = 1,
+    'No' = 0
   )
 )
 
@@ -719,11 +719,11 @@ sd_question(
   id     = 'training_need',
   label  = 'How necessary, if at all, is up-to-date, formal support (e.g., documentation, training, support forum) for your continued and effective use of the AnVIL Platform?',
   option = c(
-    '1: Extremely necessary' = '1',
-    '2' = '2',
-    '3: Neither necessary or unnecessary' = '3',
-    '4' = '4',
-    '5: Extremely unnecessary' = '5'
+    '1: Extremely necessary' = 1,
+    '2' = 2,
+    '3: Neither necessary or unnecessary' = 3,
+    '4' = 4,
+    '5: Extremely unnecessary' = 5
   )
 )
 
@@ -732,11 +732,11 @@ sd_question(
   id     = 'confident_find_help',
   label  = 'Do you feel confident that you would know where to look to find help?',
   option = c(
-    '5: Yes, extremely confident' = '5',
-    '4' = '4',
-    '3: Neither confident or unconfident' = '3',
-    '2' = '2',
-    '1: No, extremely unconfident' = '1'
+    '5: Yes, extremely confident' = 5,
+    '4' = 4,
+    '3: Neither confident or unconfident' = 3,
+    '2' = 2,
+    '1: No, extremely unconfident' = 1
   )
 )
 
@@ -780,13 +780,13 @@ sd_question(
     'Other' = 'other'
   ),
   option = c(
-    '1 (Most preferred in this list)' = '1',
-    '2' = '2',
-    '3' = '3',
-    '4' = '4',
-    '5' = '5',
-    '6' = '6',
-    '7 (Least preferred in this list)' = '7'
+    '1 (Most preferred in this list)' = 1,
+    '2' = 2,
+    '3' = 3,
+    '4' = 4,
+    '5' = 5,
+    '6' = 6,
+    '7 (Least preferred in this list)' = 7
   )
 )
 

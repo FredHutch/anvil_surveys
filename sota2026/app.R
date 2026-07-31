@@ -52,7 +52,7 @@ server <- function(input, output, session) {
   }
   
   sd_skip_if(
-    input$team_member == "1" ~ "page4",
+    input$team_member == 1 ~ "page4",
     previous_user() ~ "page3b",
     potential_user() ~ "page3c"
   )
@@ -63,7 +63,7 @@ server <- function(input, output, session) {
     #page 2 Demographics
     input$role == "other" ~ "role_other",
     input$institution_affil == "other" ~ "institution_affil_other",
-    input$team_member == "0" ~ "user_description",
+    input$team_member == 0 ~ "user_description",
     
     #page 3a Utilization
     "other" %in% input$why_description ~ "why_description_other",
@@ -89,14 +89,14 @@ server <- function(input, output, session) {
     input$use_support_satisfaction < 5 ~ "what_would_help_use_support",
     
     #page 6 specific us running analyses
-    input$use_interactive == "1" ~ "which_interactive_use_anvil",
-    input$use_interactive == "1" ~ "which_interactive_use_separate",
-    (input$use_interactive == "1" | input$use_workflows == "1") ~ "whose_data_use",
+    input$use_interactive == 1 ~ "which_interactive_use_anvil",
+    input$use_interactive == 1 ~ "which_interactive_use_separate",
+    (input$use_interactive == 1 | input$use_workflows == 1) ~ "whose_data_use",
     "anvil_data" %in% input$whose_data_use ~ "anvil_data_type",
     "anvil_data" %in% input$whose_data_use ~ "anvil_data_control",
     "controlled_access" %in% input$anvil_data_control ~ "controlled_datasets_use",
     "other" %in% input$controlled_datasets_use ~ "controlled_datasets_use_other",
-    any(c(input$use_interactive, input$use_workflows, input$services_use) == "1") ~ "analyses_satisfaction",
+    any(c(input$use_interactive, input$use_workflows, input$services_use) == 1) ~ "analyses_satisfaction",
     input$analyses_satisfaction < 5 ~ "what_would_help_services",
     
     #page 7 group supervision
@@ -109,8 +109,8 @@ server <- function(input, output, session) {
     input$use_ed_satisfaction < 5 ~ "what_would_help_ed",
     
     #page9 training needs
-    input$team_member == "0" ~ "page9",
-    as.numeric(input$preferred_learning_other) < 4 ~ "preferred_learning_other_specify"
+    input$team_member == 0 ~ "page9",
+    input$preferred_learning_other < 4 ~ "preferred_learning_other_specify"
   )
 
   sd_server(db = db)
