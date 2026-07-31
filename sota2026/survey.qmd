@@ -60,6 +60,16 @@ Add background info on the poll
 
 ```{r}
 
+sd_question(
+  type   = 'mc',
+  id     = 'consent',
+  label  = "I am 18 or over AND I consent to my responses being used for evaluation and development of the AnVIL platform.",
+  option = c(
+    'Yes' = 1,
+    'No'  = 0
+  )
+)
+
 sd_nav(page_next = "page2", show_previous = FALSE)
 ```
 
@@ -116,6 +126,24 @@ sd_question(
   type   = 'text',
   id     = 'institution_affil_other',
   label  = 'Please describe your "Other" institutional affiliation.'
+)
+
+sd_question( #<- tentatively remove
+  type = 'matrix',
+  id = 'data_categories_experience',
+  label = 'How much experience do you have analyzing the following data categories?',
+  option = c(
+    "No experience" = 1,
+    "Little experience" = 2,
+    "Some experience" = 3,
+    "Moderate experience" = 4,
+    "Extensive experience" = 5
+  ),
+  row = c(
+    "Human genomic" = 'human_genomic',
+    "Non-human genomic" = "non_human_genomic",
+    "Human clinical" = 'human_clinical'
+  )
 )
 
 sd_question(
@@ -328,7 +356,7 @@ sd_question(
   )
 )
 
-sd_nav(page_next = 'end')
+sd_nav(page_next = 'page10')
 ```
 
 --- page3c
@@ -387,7 +415,7 @@ sd_question(
   )
 )
 
-sd_nav(page_next = 'end')
+sd_nav(page_next = 'page10')
 ```
 
 --- page4
@@ -546,6 +574,8 @@ sd_question(
   )
 )
 
+#add a question asking if they use GTEx data?
+
 sd_question(
   type   = 'mc_multiple',
   id     = 'anvil_data_control',
@@ -563,7 +593,7 @@ sd_question(
   option = c(
     'Centers for Common Disease Genomics (CCDG)' = 'ccdg',
     'The Centers for Mendelian Genomics (CMG)' = 'cmg',
-    'Clinical Sequencing Evidence-Generating Research' = 'cser',
+    'Clinical Sequencing Evidence-Generating Research (CSER)' = 'cser',
     'Electronic Medical Records and Genomics (eMERGE)' = 'emerge',
     'Gabriella Miller Kids First (GMKF)' = 'gmkf',
     'Genomics Research to Elucidate the Genetics of Rare Diseases (GREGoR)' = 'gregor',
@@ -714,32 +744,42 @@ sd_nav(page_next = 'page9')
 ```{r}
 
 sd_question(
-  type   = 'mc',
-  id     = 'training_need',
-  label  = 'How necessary, if at all, is up-to-date, formal support (e.g., documentation, training, support forum) for your continued and effective use of the AnVIL Platform?',
+  type   = 'matrix',
+  id     = 'training_questions',
+  label  = 'How much do you agree or disagree with the following statements about AnVIL?',
+  row = c(
+    'Formal support (e.g., documentation, training, support forum) is important for my continued and effective use of AnVIL.' = 'training_need',
+    'I feel confident knowing where to look to find help for using AnVIL.' = 'location_confidence'
+  ),
   option = c(
-    '1: Extremely unnecessary' = 1,
-    '2' = 2,
-    '3: Neither unnecessary or necessary' = 3,
-    '4' = 4,
-    '5: Extremely necessary' = 5
+    'Strongly disagree' = 1,
+    'Somewhat disagree' = 2,
+    'Neither agree nor disagree' = 3,
+    'Somewhat agree' = 4,
+    'Strongly agree' = 5
   )
 )
 
 sd_question(
-  type   = 'mc',
-  id     = 'confident_find_help',
-  label  = 'Do you feel confident that you would know where to look to find help?',
+  type = 'mc',
+  id   = 'training_satisfaction',
+  label = 'How satisfied are you with the training that the AnVIL offers?',
   option = c(
-    '1: No, extremely unconfident' = 1,
-    '2' = 2,
-    '3: Neither confident or unconfident' = 3,
-    '4' = 4,
-    '5: Yes, extremely confident' = 5    
+    'Very dissatisfied' = 1,
+    'Dissatisfied' = 2,
+    'Neutral' = 3,
+    'Satisfied' = 4,
+    'Very satisfied' = 5
   )
 )
 
 sd_question(
+  type = 'textarea',
+  id = 'training_satisfaction_barrier',
+  label = 'What AnVIL training resources would make your learning easier or more relevant?'
+)
+
+sd_question( #<- tentatively remove
   type   = 'mc',
   id     = 'demos',
   label  = 'Have you attended a monthly AnVIL Demo?',
@@ -752,7 +792,7 @@ sd_question(
   )
 )
 
-sd_question(
+sd_question( #<- tentatively remove
   type   = 'mc_multiple',
   id     = 'support_forum',
   label  = 'Have you ever read or posted in our AnVIL Support Forum? (select all that apply)',
@@ -772,20 +812,20 @@ sd_question(
   row    = c(
     'Video tutorials' = 'video',
     'Guided documentation' = 'docs',
-    'Live Demos' = 'demos',
-    'Workshops' = 'workshops',
+    'Live demonstrations' = 'demos',
+    'Interactive workshops' = 'workshops',
     'Support forum' = 'forum',
     'Office hours' = 'office_hours',
     'Other' = 'other'
   ),
   option = c(
-    '1 (Most preferred in this list)' = 1,
-    '2' = 2,
-    '3' = 3,
-    '4' = 4,
-    '5' = 5,
-    '6' = 6,
-    '7 (Least preferred in this list)' = 7
+    'Most preferred' = 1,
+    '2nd choice' = 2,
+    '3rd choice' = 3,
+    '4th choice' = 4,
+    '5th choice' = 5,
+    '6th choice' = 6,
+    'Least preferred' = 7
   )
 )
 
@@ -793,6 +833,26 @@ sd_question(
   type   = 'text',
   id     = 'preferred_learning_other_specify',
   label  = 'What "Other" methods of learning do you prefer?'
+)
+
+sd_question(
+    type = 'textarea',
+    id   = 'training_wanted',
+    label = 'Please share any additional training resources or topics you would like to see.'
+)
+
+sd_nav(page_next = 'page10')
+
+```
+
+--- page10
+
+```{r}
+
+sd_question(
+  type = 'textarea',
+  id = 'aspirational_roadmap',
+  label = 'Overall, what is the most important thing you think the AnVIL team should focus on?'
 )
 
 sd_nav(page_next = 'end')
@@ -804,5 +864,6 @@ sd_nav(page_next = 'end')
 Thank you for your responses!
 
 ```{r}
+
 sd_close()
 ```

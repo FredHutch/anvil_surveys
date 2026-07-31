@@ -52,14 +52,16 @@ server <- function(input, output, session) {
   }
   
   sd_skip_if(
+    #page 1 send to screenout if necessary
+    input$consent == 0 ~ "screenout",
+    #user logic
     input$team_member == 1 ~ "page4",
     previous_user() ~ "page3b",
     potential_user() ~ "page3c"
   )
   
   sd_show_if(
-    #page 1 send to screenout if necessary
-    
+  
     #page 2 Demographics
     input$role == "other" ~ "role_other",
     input$institution_affil == "other" ~ "institution_affil_other",
@@ -110,7 +112,9 @@ server <- function(input, output, session) {
     
     #page9 training needs
     input$team_member == 0 ~ "page9",
-    input$preferred_learning_other < 4 ~ "preferred_learning_other_specify"
+    input$preferred_learning_other < 4 ~ "preferred_learning_other_specify",
+    input$training_satisfaction < 5 ~ "training_satisfaction_barrier",
+    input$training_satisfaction == 5 ~ "training_wanted"
   )
 
   sd_server(db = db)
