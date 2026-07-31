@@ -821,11 +821,11 @@ sd_question(
   ),
   option = c(
     'Most preferred' = 1,
-    '\u00A0' = 2,
-    '\u00A0\u00A0\u00A0' = 3,
-    '\u00A0\u00A0\u00A0\u00A0;' = 4,
-    '\u00A0\u00A0' = 5,
-    '\u00A0\u00A0\u00A0\u00A0\u00A0' = 6,
+    '.' = 2,
+    '...' = 3,
+    '.....' = 4,
+    '..' = 5,
+    '....' = 6,
     'Least preferred' = 7
   )
 )
