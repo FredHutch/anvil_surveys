@@ -597,6 +597,7 @@ sd_question(
     'Electronic Medical Records and Genomics (eMERGE)' = 'emerge',
     'Gabriella Miller Kids First (GMKF)' = 'gmkf',
     'Genomics Research to Elucidate the Genetics of Rare Diseases (GREGoR)' = 'gregor',
+    'The Genotype-Tissue Expression Project (GTEx)' = 'gtex',
     'The Human Pangenome Reference Consortium (HPRC)' = 'hprc',
     'Population Architecture Using Genomics and Epidemiology (PAGE)' = 'page',
     'Undiagnosed Disease Network (UDN)' = 'udn',
