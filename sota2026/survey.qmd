@@ -471,7 +471,6 @@ sd_question(
     'Very satisfied' = 5
   )
 )
-#standardize throughout that if 1 is good, it's good everywhere <-- isn't 1 usually "worst"?
 
 sd_question( ## Rephrase?
   type   = 'textarea',
@@ -719,11 +718,11 @@ sd_question(
   id     = 'training_need',
   label  = 'How necessary, if at all, is up-to-date, formal support (e.g., documentation, training, support forum) for your continued and effective use of the AnVIL Platform?',
   option = c(
-    '1: Extremely necessary' = 1,
+    '1: Extremely unnecessary' = 1,
     '2' = 2,
-    '3: Neither necessary or unnecessary' = 3,
+    '3: Neither unnecessary or necessary' = 3,
     '4' = 4,
-    '5: Extremely unnecessary' = 5
+    '5: Extremely necessary' = 5
   )
 )
 
@@ -732,11 +731,11 @@ sd_question(
   id     = 'confident_find_help',
   label  = 'Do you feel confident that you would know where to look to find help?',
   option = c(
-    '5: Yes, extremely confident' = 5,
-    '4' = 4,
-    '3: Neither confident or unconfident' = 3,
+    '1: No, extremely unconfident' = 1,
     '2' = 2,
-    '1: No, extremely unconfident' = 1
+    '3: Neither confident or unconfident' = 3,
+    '4' = 4,
+    '5: Yes, extremely confident' = 5    
   )
 )
 
