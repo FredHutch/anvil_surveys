@@ -51,6 +51,13 @@ server <- function(input, output, session) {
     return(FALSE)
   }
   
+  tool_user <- function(){
+    val <- c(sd_value(use_interactive), sd_value(use_workflows), sd_value(services_use))
+    if (all(is.null(val))) return(FALSE)
+    if (any(val) == 1) return(TRUE)
+    return(FALSE)
+  }
+  
   sd_skip_if(
     #page 1 send to screenout if necessary
     sd_value(consent) == 0 ~ "screenout",
@@ -72,7 +79,7 @@ server <- function(input, output, session) {
     "consortium" %in% sd_value(why_external) ~ "consortia_analysis",
     "consortium" %in% sd_value(why_external) ~ "consortia_data",
     "consortium" %in% sd_value(why_external) ~ "consortia_affil",
-    sd_value(nps_score < 7 ~ "nps_score_explain",
+    (sd_is_answered(input$nps_score) & sd_value(nps_score) < 7) ~ "nps_score_explain",
     
     #page3b previous use
     "other" %in% sd_value(why_stopped) ~ "why_stopped_other",
@@ -84,11 +91,11 @@ server <- function(input, output, session) {
     #page 4 specific use data submission
     sd_value(use_submit_data) == 1 ~ "use_submit_raw_summarized",
     sd_value(use_submit_data) == 1 ~ "use_submit_satisfaction",
-    sd_value(use_submit_satisfaction) < 5 ~ "what_would_help_submit",
+    (sd_is_answered(input$use_submit_satisfaction) & sd_value(use_submit_satisfaction) < 5) ~ "what_would_help_submit",
     
     #page 5 specific use group support
     sd_value(use_support) == 1 ~ "use_support_satisfaction",
-    sd_value(use_support_satisfaction) < 5 ~ "what_would_help_use_support",
+    (sd_is_answered(input$use_support_satisfaction) & sd_value(use_support_satisfaction) < 5) ~ "what_would_help_use_support",
     
     #page 6 specific us running analyses
     sd_value(use_interactive) == 1 ~ "which_interactive_use_anvil",
@@ -98,23 +105,23 @@ server <- function(input, output, session) {
     "anvil_data" %in% sd_value(whose_data_use) ~ "anvil_data_control",
     "controlled_access" %in% sd_value(anvil_data_control) ~ "controlled_datasets_use",
     "other" %in% sd_value(controlled_datasets_use) ~ "controlled_datasets_use_other",
-    any(c(sd_value(use_interactive), sd_value(use_workflows), sd_value(services_use)) == 1) ~ "analyses_satisfaction",
-    sd_value(analyses_satisfaction) < 5 ~ "what_would_help_services",
+    tool_user() ~ "analyses_satisfaction",
+    (sd_is_answered(input$analyses_satisfaction) & sd_value(analyses_satisfaction) < 5) ~ "what_would_help_services",
     
     #page 7 group supervision
     sd_value(use_supervise) == 1 ~ "use_supervise_questions",
     sd_value(use_supervise) == 1 ~ "use_supervise_satisfaction",
-    sd_value(use_supervise_satisfaction) < 5 ~ "what_would_help_supervise",
+    (sd_is_answered(input$use_supervise_satisfaction) & sd_value(use_supervise_satisfaction) < 5) ~ "what_would_help_supervise",
     
     #page8 educational support
     sd_value(use_ed) == 1 ~ "use_ed_satisfaction",
-    sd_value(use_ed_satisfaction) < 5 ~ "what_would_help_ed",
+    (sd_is_answered(input$use_ed_satisfaction) & sd_value(use_ed_satisfaction) < 5) ~ "what_would_help_ed",
     
     #page9 training needs
     sd_value(team_member) == 0 ~ "page9",
     sd_value(preferred_learning_other) < 4 ~ "preferred_learning_other_specify",
-    sd_value(training_satisfaction) < 5 ~ "training_satisfaction_barrier",
-    sd_value(training_satisfaction) == 5 ~ "training_wanted"
+    (sd_is_answered(input$training_satisfaction) & sd_value(training_satisfaction) < 5) ~ "training_satisfaction_barrier",
+    (sd_is_answered(input$training_satisfaction) & sd_value(training_satisfaction) == 5) ~ "training_wanted"
   )
 
   sd_server(db = db)
