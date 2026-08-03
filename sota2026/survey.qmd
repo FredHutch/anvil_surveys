@@ -437,7 +437,7 @@ sd_question(
   )
 )
 
-sd_question(
+sd_question(#mc_multiple instead?
   type   = 'mc',
   id     = 'use_submit_raw_summarized',
   label  = 'Do you submit or manage raw data (e.g., sequencing reads) or summarized data (e.g., count tables, variant calls, etc.)?',

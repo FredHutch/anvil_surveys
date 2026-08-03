@@ -51,6 +51,15 @@ server <- function(input, output, session) {
     return(FALSE)
   }
   
+  nps_score_eval <- function(){
+    val <- sd_value("nps_score")
+    if (is.null(val)) return(FALSE)
+    if (val %in% 7:10) return(FALSE)
+    if (val %in% 0:6) return(TRUE)
+    return(FALSE)
+  }
+  
+
   tool_user <- function(){
     val <- c(sd_value(use_interactive), sd_value(use_workflows), sd_value(services_use))
     if (all(is.null(val))) return(FALSE)
@@ -58,13 +67,37 @@ server <- function(input, output, session) {
     return(FALSE)
   }
   
-  satisfied_training <- function(){
-    val <- sd_value("training_satisfaction")
+  satisfaction_eval <- function(val){
     if (is.null(val)) return(FALSE)
     if (val == 5) return (FALSE)
     if (val %in% 1:4) return(TRUE)
     return(FALSE)
   }
+  
+  submit_satisfaction <- function(){
+    satisfaction_eval(sd_value("use_submit_satisfaction"))
+  }
+  
+  support_satisfaction <- function(){
+    satisfaction_eval(sd_value("use_support_satisfaction"))
+  }
+  
+  analyses_satisfaction <- function(){
+    satisfaction_eval(sd_value("analyses_satisfaction"))
+  }
+  
+  supervise_satisfaction <- function(){
+    satisfaction_eval(sd_value("use_supervise_satisfaction"))
+  }
+  
+  ed_satisfaction <- function(){
+    satisfaction_eval(sd_value("use_ed_satisfaction"))
+  }
+  
+  training_satisfaction <- function(){
+    satisfaction_eval(sd_value("training_satisfaction"))
+  }
+  
   
   preferred_learning_option <- function(){
     val <- sd_value("preferred_learning_other")
@@ -95,7 +128,7 @@ server <- function(input, output, session) {
     "consortium" %in% sd_value(why_external) ~ "consortia_analysis",
     "consortium" %in% sd_value(why_external) ~ "consortia_data",
     "consortium" %in% sd_value(why_external) ~ "consortia_affil",
-    (sd_is_answered("nps_score") & sd_value(nps_score) < 7) ~ "nps_score_explain",
+    nps_score_eval() ~ "nps_score_explain",
     
     #page3b previous use
     "other" %in% sd_value(why_stopped) ~ "why_stopped_other",
@@ -107,11 +140,11 @@ server <- function(input, output, session) {
     #page 4 specific use data submission
     sd_value(use_submit_data) == 1 ~ "use_submit_raw_summarized",
     sd_value(use_submit_data) == 1 ~ "use_submit_satisfaction",
-    (sd_is_answered("use_submit_satisfaction") & sd_value(use_submit_satisfaction) < 5) ~ "what_would_help_submit",
+    submit_satisfaction() ~ "what_would_help_submit",
     
     #page 5 specific use group support
     sd_value(use_support) == 1 ~ "use_support_satisfaction",
-    (sd_is_answered("use_support_satisfaction") & sd_value(use_support_satisfaction) < 5) ~ "what_would_help_use_support",
+    support_satisfaction() ~ "what_would_help_use_support",
     
     #page 6 specific us running analyses
     sd_value(use_interactive) == 1 ~ "which_interactive_use_anvil",
@@ -122,20 +155,21 @@ server <- function(input, output, session) {
     "controlled_access" %in% sd_value(anvil_data_control) ~ "controlled_datasets_use",
     "other" %in% sd_value(controlled_datasets_use) ~ "controlled_datasets_use_other",
     tool_user() ~ "analyses_satisfaction",
-    (sd_is_answered("analyses_satisfaction") & sd_value(analyses_satisfaction) < 5) ~ "what_would_help_services",
+    analyses_satisfaction() ~ "what_would_help_services",
     
     #page 7 group supervision
     sd_value(use_supervise) == 1 ~ "use_supervise_questions",
     sd_value(use_supervise) == 1 ~ "use_supervise_satisfaction",
-    (sd_is_answered("use_supervise_satisfaction") & sd_value(use_supervise_satisfaction) < 5) ~ "what_would_help_supervise",
+    supervise_satisfaction() ~ "what_would_help_supervise",
     
     #page8 educational support
     sd_value(use_ed) == 1 ~ "use_ed_satisfaction",
-    (sd_is_answered("use_ed_satisfaction") & sd_value(use_ed_satisfaction) < 5) ~ "what_would_help_ed",
+    ed_satisfaction() ~ "what_would_help_ed",
     
     #page9 training needs
     sd_value(team_member) == 0 ~ "page9",
-    satisfied_training() ~ "training_satisfaction_barrier",
+    training_satisfaction() ~ "training_satisfaction_barrier",
+    !training_satisfaction() ~ "training_wanted",
     preferred_learning_option() ~ "preferred_learning_other_specify"
   )
 
