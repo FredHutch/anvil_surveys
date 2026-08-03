@@ -66,6 +66,14 @@ server <- function(input, output, session) {
     return(FALSE)
   }
   
+  preferred_learning_option <- function(){
+    val <- sd_value("preferred_learning_other")
+    if (is.null(val)) return(FALSE)
+    if (val > 4) return (FALSE)
+    if (val %in% 1:3) return(TRUE)
+    return(FALSE)
+  }
+  
   sd_skip_if(
     #page 1 send to screenout if necessary
     sd_value(consent) == 0 ~ "screenout",
@@ -127,8 +135,8 @@ server <- function(input, output, session) {
     
     #page9 training needs
     sd_value(team_member) == 0 ~ "page9",
-    sd_value(preferred_learning_other) < 4 ~ "preferred_learning_other_specify",
-    satisfied_training() ~ "training_satisfaction_barrier"
+    satisfied_training() ~ "training_satisfaction_barrier",
+    preferred_learning_option() ~ "preferred_learning_other_specify"
   )
 
   sd_server(db = db)
