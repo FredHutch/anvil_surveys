@@ -777,7 +777,7 @@ sd_question(
 sd_question(
   type = 'textarea',
   id = 'training_satisfaction_barrier',
-  label = 'What AnVIL training resources would make your learning easier or more relevant?'
+  label = 'What AnVIL resources would make your learning easier or more relevant?'
 )
 
 sd_question( #<- tentatively remove
@@ -821,11 +821,11 @@ sd_question(
   ),
   option = c(
     'Most preferred' = 1,
-    '.' = 2,
-    '...' = 3,
-    '.....' = 4,
-    '..' = 5,
-    '....' = 6,
+    '2' = 2,
+    '3' = 3,
+    '4' = 4,
+    '5' = 5,
+    '6' = 6,
     'Least preferred' = 7
   )
 )
