@@ -94,10 +94,16 @@ server <- function(input, output, session) {
     satisfaction_eval(sd_value("use_ed_satisfaction"))
   }
   
-  training_satisfaction <- function(){
+  training_use_satisfaction <- function(){
     satisfaction_eval(sd_value("training_satisfaction"))
   }
   
+  training_wants_eval <- function(){
+    val <- sd_value("training_satisfaction")
+    if (is.null(val)) return(FALSE)
+    if (val == 5) return(TRUE)
+    return(FALSE)
+  }
   
   preferred_learning_option <- function(){
     val <- sd_value("preferred_learning_other")
@@ -168,8 +174,8 @@ server <- function(input, output, session) {
     
     #page9 training needs
     sd_value(team_member) == 0 ~ "page9",
-    training_satisfaction() ~ "training_satisfaction_barrier",
-    !training_satisfaction() ~ "training_wanted",
+    training_use_satisfaction() ~ "training_satisfaction_barrier",
+    training_wants_eval() ~ "training_wanted",
     preferred_learning_option() ~ "preferred_learning_other_specify"
   )
 
