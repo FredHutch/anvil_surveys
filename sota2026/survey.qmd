@@ -1,6 +1,13 @@
 ---
+title: "State of the AnVIL 2026: Community Poll"
+brand: style/_brand.yml
+include-in-header:
+  text: |
+    <link rel="shortcut icon" href="style/anvil_favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="style/anvil_favicon.ico">
+
 theme-settings:
-  theme: default
+  theme: [style/style.scss]
   barposition: top
   footer-left: 'Made with [surveydown](https://surveydown.org)'
   footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/fhdsl/anvil_surveys/tree/sota2026)'
@@ -14,11 +21,12 @@ survey-settings:
   rate-survey: false
   system-language: en
   highlight-unanswered: true
-  highlight-color: blue
+  highlight-color: grey
   capture-metadata: true
   all-required: false
   all-shuffled: false
   required:
+    - consent
     - role
     - institution_affil
     - team_member
@@ -52,11 +60,25 @@ library(surveydown)
 
 --- welcome
 
-# State of the AnVIL 2026
+![](style/logo-anvil.png){fig-alt="AnVIL" width="180" fig-align="center"}
 
-<!-- include logo -->
+<br>
 
-Add background info on the poll
+# State of the AnVIL 2026: Community Poll
+
+Thank you for participating in the State of the AnVIL 2025 Community Poll! The AnVIL is the NHGRI Genomic Data Science Analysis, Visualization, and Informatics Lab-space which provides a unified environment for secure data management and computation. This allows for cloud-based analysis of large datasets without having to move those datasets. The objective of this poll is to understand user experience, needs, and any potential barriers to adoption for the AnVIL platform. This will be achieved by collecting quantitative data on usage, experiences, and preferences. We estimate this poll will take between 10 and 15 minutes to complete. Your feedback will help us as we continue developing this platform to support your research and data storage needs.
+
+**DATA CONFIDENTIALITY**: Responses are anonymous. Data will be stored on a private, password-protected server with access restricted to members of the AnVIL Team.
+
+**DATA SHARING**: Insights from this data may be shared externally within summary reports (published with a peer-reviewed journal or posted on a public website) or infographics. All poll responses are aggregated and reported anonymously to protect the privacy of participants. 
+
+**PARTICIPATION**: You must be 18 or over to participate. You can stop participating in the poll at any point. You do not need to answer optional questions. Any answers that are ultimately submitted (and not removed or requested to be removed by the participant) will continue to be used for platform improvement and/or reports.
+
+**RISK**: Risk of participation is minimal. The questions we ask pose minimal security risk to participants as they focus on your personal experience and expectations. While we have taken measures to ensure the security of the survey responses, please be aware that no online system is completely secure. By participating in this survey, you understand and accept the inherent risks associated with transmitting information over the internet. 
+
+**CONSENT**: By completing this poll, you are consenting to be included in our study. Your participation is voluntary and you can stop at any time.
+
+<br>
 
 ```{r}
 

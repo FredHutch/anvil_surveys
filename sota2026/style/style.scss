@@ -1,0 +1,75 @@
+/*-- scss:defaults --*/
+
+$anvil-navy:       #012840;
+$anvil-blue:       #035C94;
+$anvil-slate:      #25445A;
+$anvil-light-blue: #AEEBF2;
+$anvil-teal:       #7EBAC0;
+$anvil-yellow:     #E0DD10;
+$anvil-off-white:  #F6F7F4;
+$anvil-gray:       #333333;
+
+$primary: $anvil-blue;
+$body-bg: $anvil-off-white;
+$body-color: $anvil-gray;
+$link-color: $anvil-blue;
+$link-hover-color: lighten($anvil-blue, 15%);
+$focus-ring-color: rgba($anvil-blue, 0.3);
+
+$font-family-sans-serif: "Open Sans", sans-serif;
+$headings-font-family: "Montserrat", sans-serif;
+$headings-color: $anvil-navy;
+
+/*-- scss:rules --*/
+
+a:hover {
+  color: lighten($anvil-blue, 15%);
+}
+
+/* SurveyDown question container */
+.sd-question,
+.question {
+  margin-block: 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba($anvil-blue, 0.18);
+  border-left: 0.4rem solid $anvil-blue;
+  border-radius: 0.25rem;
+  background: #fff;
+}
+
+/* Form controls */
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: $anvil-blue;
+  box-shadow: 0 0 0 0.2rem rgba($anvil-blue, 0.2);
+}
+
+.form-check-input:checked {
+  background-color: $anvil-blue;
+  border-color: $anvil-blue;
+}
+
+/* Buttons */
+.btn-primary,
+.action-button.btn-primary {
+  background-color: $anvil-blue;
+  border-color: $anvil-blue;
+}
+
+.btn-primary:hover,
+.action-button.btn-primary:hover {
+  background-color: lighten($anvil-blue, 10%);
+  border-color: lighten($anvil-blue, 10%);
+}
+
+/* Survey progress indicators, where applicable */
+.progress-bar {
+  background-color: $anvil-blue;
+}
+
+/* Accessible keyboard focus */
+:focus-visible {
+  outline: 3px solid $anvil-light-blue;
+  outline-offset: 2px;
+}
