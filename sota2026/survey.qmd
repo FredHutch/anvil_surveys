@@ -1,13 +1,13 @@
 ---
 title: "State of the AnVIL 2026: Community Poll"
-brand: style/_brand.yml
+brand: _brand.yml
 include-in-header:
   text: |
-    <link rel="shortcut icon" href="style/anvil_favicon.ico" />
-    <link rel="icon" type="image/x-icon" href="style/anvil_favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 theme-settings:
-  theme: [style/style.scss]
+  theme: style.scss
   barposition: top
   footer-left: 'Made with [surveydown](https://surveydown.org)'
   footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/fhdsl/anvil_surveys/tree/sota2026)'
@@ -90,8 +90,9 @@ system-messages:
   redirect-error: "Error: This text won't trigger any redirection..."
 ---
 
-```{r}
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 library(surveydown)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 satisfaction_options <- c(
   'Very dissatisfied' = 1,
@@ -161,9 +162,17 @@ yes_no_unsure_options <- c(
 
 ```
 
+```{r eval = FALSE}
+# Render print versions
+pagedown::chrome_print("survey.qmd", "sota2026.pdf")
+system("pandoc survey.html -o sota2026.docx")
+```
+
+<br>
+
 --- welcome
 
-![](style/logo-anvil.png){fig-alt="AnVIL" width="180" fig-align="center"}
+![](logo-anvil.png){fig-alt="AnVIL" width="180" fig-align="center"}
 
 <br>
 
@@ -201,6 +210,8 @@ sd_question(
 sd_nav(page_next = "page2", show_previous = FALSE)
 ```
 
+<br>
+
 --- screenout
 
 ## Thank you for your interest!
@@ -210,6 +221,8 @@ Unfortunately, you do not meet the eligibility requirements for this poll.
 ```{r}
 sd_close()
 ```
+
+<br>
 
 --- page2
 
@@ -294,6 +307,8 @@ sd_question(
   )
 )
 ```
+
+<br>
 
 --- page3a
 
@@ -398,6 +413,8 @@ sd_question(
 sd_nav(page_next = 'page4')
 ```
 
+<br>
+
 --- page3b
 
 <!-- ## Previous Users -->
@@ -449,6 +466,8 @@ sd_question(
 sd_nav(page_next = 'page10')
 ```
 
+<br>
+
 --- page3c
 
 <!-- ## Potential Users -->
@@ -479,6 +498,8 @@ sd_question(
 
 sd_nav(page_next = 'page10')
 ```
+
+<br>
 
 --- page4
 
@@ -522,6 +543,8 @@ sd_question( ## Rephrase?
 sd_nav(page_next = 'page5')
 ```
 
+<br>
+
 --- page5
 
 ## Specific Use: Group support
@@ -550,6 +573,8 @@ sd_question( ## Rephrase?
 
 sd_nav(page_next = 'page6')
 ```
+
+<br>
 
 --- page6
 
@@ -666,6 +691,8 @@ sd_question( ## Rephrase?
 sd_nav(page_next = 'page7')
 ```
 
+<br>
+
 --- page7
 
 ## Specific Use: Group supervision
@@ -707,6 +734,8 @@ sd_question( ## Rephrase?
 sd_nav(page_next = 'page8')
 ```
 
+<br>
+
 --- page8
 
 ## Specific Use: Educational support
@@ -736,6 +765,8 @@ sd_question( ## Rephrase?
 sd_nav(page_next = 'page9')
 
 ```
+
+<br>
 
 --- page9
 
@@ -833,6 +864,8 @@ sd_nav(page_next = 'page10')
 
 ```
 
+<br>
+
 --- page10
 
 ```{r}
@@ -846,6 +879,8 @@ sd_question(
 sd_nav(page_next = 'end')
 
 ```
+
+<br>
 
 --- end
 
