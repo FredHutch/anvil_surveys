@@ -35,17 +35,17 @@ survey-settings:
 system-messages:
   cancel: Cancel
   confirm-exit: Confirm Exit
-  sure-exit: Are you sure you want to exit the survey?
+  sure-exit: Are you sure you want to exit the poll?
   submit-exit: Submit and Exit
   warning: Warning
   required: Please answer all required questions before proceeding.
   rating-title: Before you go...
-  rating-text: 'Rate your survey experience:'
+  rating-text: 'Rate your poll experience:'
   rating-scale: from 1-poor to 5-excellent
   previous: Previous
   next: Next
-  exit: Exit Survey
-  close-tab: Please close this tab manually to exit the survey.
+  exit: Exit poll
+  close-tab: Please close this tab manually to exit the poll.
   choose-option: Choose an option...
   click: Click here
   redirect: Redirecting in
@@ -56,6 +56,22 @@ system-messages:
 
 ```{r}
 library(surveydown)
+
+satisfaction_options <- c(
+  'Very dissatisfied' = 1,
+  'Dissatisfied' = 2,
+  'Neutral' = 3,
+  'Satisfied' = 4,
+  'Very satisfied' = 5
+)
+
+likert_options <- c(
+  'Strongly disagree' = 1,
+  'Somewhat disagree' = 2,
+  'Neither agree nor disagree' = 3,
+  'Somewhat agree' = 4,
+  'Strongly agree' = 5
+)
 ```
 
 --- welcome
@@ -74,7 +90,7 @@ Thank you for participating in the State of the AnVIL 2025 Community Poll! The A
 
 **PARTICIPATION**: You must be 18 or over to participate. You can stop participating in the poll at any point. You do not need to answer optional questions. Any answers that are ultimately submitted (and not removed or requested to be removed by the participant) will continue to be used for platform improvement and/or reports.
 
-**RISK**: Risk of participation is minimal. The questions we ask pose minimal security risk to participants as they focus on your personal experience and expectations. While we have taken measures to ensure the security of the survey responses, please be aware that no online system is completely secure. By participating in this survey, you understand and accept the inherent risks associated with transmitting information over the internet. 
+**RISK**: Risk of participation is minimal. The questions we ask pose minimal security risk to participants as they focus on your personal experience and expectations. While we have taken measures to ensure the security of the poll responses, please be aware that no online system is completely secure. By participating in this poll, you understand and accept the inherent risks associated with transmitting information over the internet. 
 
 **CONSENT**: By completing this poll, you are consenting to be included in our study. Your participation is voluntary and you can stop at any time.
 
@@ -99,7 +115,7 @@ sd_nav(page_next = "page2", show_previous = FALSE)
 
 ## Thank you for your interest!
 
-Unfortunately, you do not meet the eligibility requirements for this survey.
+Unfortunately, you do not meet the eligibility requirements for this poll.
 
 ```{r}
 sd_close()
@@ -475,13 +491,7 @@ sd_question(
   type   = 'mc',
   id     = 'use_submit_satisfaction',
   label  = 'How satisfied are you with AnVIL data submission or management?',
-  option = c(
-    'Very dissatisfied' = 1,
-    'Dissatisfied' = 2,
-    'Neutral' = 3,
-    'Satisfied' = 4,
-    'Very satisfied' = 5
-  )
+  option = satisfaction_options
 )
 
 sd_question( ## Rephrase?
@@ -513,13 +523,7 @@ sd_question(
   type = 'mc',
   id   = 'use_support_satisfaction',
   label  = 'How satisfied are you with your support tasks on AnVIL?',
-  option = c(
-    'Very dissatisfied' = 1,
-    'Dissatisfied' = 2,
-    'Neutral' = 3,
-    'Satisfied' = 4,
-    'Very satisfied' = 5
-  )
+  option = satisfaction_options
 )
 
 sd_question( ## Rephrase?
@@ -647,13 +651,7 @@ sd_question(
   type = 'mc',
   id   = 'analyses_satisfaction',
   label  = 'How satisfied are you with running analyses on AnVIL?',
-  option = c(
-    'Very dissatisfied' = 1,
-    'Dissatisfied' = 2,
-    'Neutral' = 3,
-    'Satisfied' = 4,
-    'Very satisfied' = 5
-  )
+  option = satisfaction_options
 )
 
 sd_question( ## Rephrase?
@@ -690,26 +688,14 @@ sd_question(
     'AnVIL helps my team collaborate securely' = 'use_supervise_collab_secure',
     'AnVIL provides resources my team would not otherwise have access to' = 'supervise_provide_resources'
   ),
-  option = c(
-    'Strongly disagree' = 1,
-    'Somewhat disagree' = 2,
-    'Neither agree nor disagree' = 3,
-    'Somewhat agree' = 4,
-    'Strongly agree' = 5
-  )
+  option = likert_options
 )
 
 sd_question(
   type = 'mc',
   id   = 'use_supervise_satisfaction',
   label  = 'How satisfied are you with supervising others on AnVIL?',
-  option = c(
-    'Very dissatisfied' = 1,
-    'Dissatisfied' = 2,
-    'Neutral' = 3,
-    'Satisfied' = 4,
-    'Very satisfied' = 5
-  )
+  option = satisfaction_options
 )
 
 sd_question( ## Rephrase?
@@ -741,13 +727,7 @@ sd_question(
   type = 'mc',
   id   = 'use_ed_satisfaction',
   label  = 'How satisfied are you with training or leading courses on AnVIL?',
-  option = c(
-    'Very dissatisfied' = 1,
-    'Dissatisfied' = 2,
-    'Neutral' = 3,
-    'Satisfied' = 4,
-    'Very satisfied' = 5
-  )
+  option = satisfaction_options
 )
 
 sd_question( ## Rephrase?
@@ -774,26 +754,14 @@ sd_question(
     'Formal support (e.g., documentation, training, support forum) is important for my continued and effective use of AnVIL.' = 'training_need',
     'I feel confident knowing where to look to find help for using AnVIL.' = 'location_confidence'
   ),
-  option = c(
-    'Strongly disagree' = 1,
-    'Somewhat disagree' = 2,
-    'Neither agree nor disagree' = 3,
-    'Somewhat agree' = 4,
-    'Strongly agree' = 5
-  )
+  option = likert_options
 )
 
 sd_question(
   type = 'mc',
   id   = 'training_satisfaction',
   label = 'How satisfied are you with the training that the AnVIL offers?',
-  option = c(
-    'Very dissatisfied' = 1,
-    'Dissatisfied' = 2,
-    'Neutral' = 3,
-    'Satisfied' = 4,
-    'Very satisfied' = 5
-  )
+  option = satisfaction_options
 )
 
 sd_question(
