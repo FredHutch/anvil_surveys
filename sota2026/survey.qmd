@@ -82,7 +82,13 @@ likert_options <- c(
 
 # State of the AnVIL 2026: Community Poll
 
-Thank you for participating in the State of the AnVIL 2025 Community Poll! The AnVIL is the NHGRI Genomic Data Science Analysis, Visualization, and Informatics Lab-space which provides a unified environment for secure data management and computation. This allows for cloud-based analysis of large datasets without having to move those datasets. The objective of this poll is to understand user experience, needs, and any potential barriers to adoption for the AnVIL platform. This will be achieved by collecting quantitative data on usage, experiences, and preferences. We estimate this poll will take between 10 and 15 minutes to complete. Your feedback will help us as we continue developing this platform to support your research and data storage needs.
+Thank you for participating in the State of the AnVIL 2025 Community Poll!
+
+[AnVIL](https://anvilproject.org/) (the NHGRI Genomic Data Science Analysis, Visualization, and Informatics Lab-space) is a unified environment for secure data management and computing. It enables cloud-based analysis of large datasets without the need to move that data.
+
+This poll aims to understand your experience with the AnVIL platform, including your needs and any barriers to adoption, by collecting data on usage, experiences, and preferences. It should take 10–15 minutes to complete.
+
+Your feedback will directly shape how we develop AnVIL to better support your work and research needs.
 
 **DATA CONFIDENTIALITY**: Responses are anonymous. Data will be stored on a private, password-protected server with access restricted to members of the AnVIL Team.
 
