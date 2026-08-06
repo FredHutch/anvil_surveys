@@ -1,0 +1,47 @@
+meta:
+  name:
+    short: AnVIL
+    full: Analysis, Visualization, and Informatics Lab-space
+  link:
+    home: https://anvilproject.org
+    
+color:
+  palette:
+    anvil-navy: "#012840"
+    anvil-blue: "#035C94"
+    anvil-slate: "#25445A"
+    anvil-light-blue: "#AEEBF2"
+    anvil-teal: "#7EBAC0"
+    anvil-yellow: "#E0DD10"
+    anvil-off-white: "#F6F7F4"
+    anvil-gray: "#333333"
+
+  foreground: anvil-gray
+  background: anvil-off-white
+  primary: anvil-blue
+  secondary: anvil-slate
+  info: anvil-light-blue
+  warning: anvil-yellow
+
+typography:
+  fonts:
+    - family: Montserrat
+      source: google
+      weight: [500, 600, 700]
+    - family: Open Sans
+      source: google
+      weight: [400, 600, 700]
+
+  base:
+    family: Open Sans
+    size: 1rem
+    line-height: 1.6
+
+  headings:
+    family: Montserrat
+    weight: 600
+    color: anvil-navy
+
+  link:
+    color: anvil-blue
+    decoration: underline
