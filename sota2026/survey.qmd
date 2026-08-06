@@ -67,11 +67,7 @@ survey-settings:
     - demos
     - support_forum
     - preferred_learning
-    - preferred_learning_other_specify
 
-
-
-    
 system-messages:
   cancel: Cancel
   confirm-exit: Confirm Exit
