@@ -63,7 +63,7 @@ server <- function(input, output, session) {
   tool_user <- function(){
     val <- c(sd_value(use_interactive), sd_value(use_workflows), sd_value(services_use))
     if (all(is.null(val))) return(FALSE)
-    if (any(val) == 1) return(TRUE)
+    if (any(val == 1)) return(TRUE)
     return(FALSE)
   }
   
