@@ -28,27 +28,20 @@ survey-settings:
   required:
     - consent
     - role
-    - role_other
     - institution_affil
-    - institution_affil_other
     - data_categories_experience
     - team_member
     - user_description
     - why_external
     - why_description
-    - why_description_other
     - consortia_analysis
     - consortia_data
-    - consortia_affil
     - length_of_use
     - nps_score
     - why_stopped
-    - why_stopped_other
     - what_would_help_previous
-    - what_would_help_previous_other
     - platform_priorities_previous
     - what_would_help_potential
-    - what_would_help_potential_other
     - platform_priorities_potential
     - use_submit_data
     - use_submit_raw_summarized
@@ -62,7 +55,6 @@ survey-settings:
     - anvil_data_type
     - anvil_data_control
     - controlled_datasets_use
-    - controlled_datasets_use_other
     - services_use
     - analyses_satisfaction
     - use_supervise
@@ -245,7 +237,7 @@ sd_question(
 sd_question(
   type   = 'text',
   id     = 'role_other',
-  label  = 'Please describe your "Other" career stage/position.'
+  label  = '(Optional) Please describe your "Other" career stage/position.'
 )
 
 sd_question(
@@ -265,7 +257,7 @@ sd_question(
 sd_question(
   type   = 'text',
   id     = 'institution_affil_other',
-  label  = 'Please describe your "Other" institutional affiliation.'
+  label  = '(Optional) Please describe your "Other" institutional affiliation.'
 )
 
 sd_question( #<- tentatively remove
@@ -346,7 +338,7 @@ sd_question(
 sd_question(
   type   = 'textarea',
   id     = 'why_description_other',
-  label  = 'Please describe your "Other" reason for using AnVIL.'
+  label  = '(Optional) Please describe your "Other" reason for using AnVIL.'
 )
 
 sd_question( ### <-- WHAT DO WE HOPE TO LEARN
@@ -366,7 +358,7 @@ sd_question( ### <-- WHAT DO WE HOPE TO LEARN
 sd_question( ### <-- WHAT DO WE HOPE TO LEARN
   type  = 'text',
   id    = 'consortia_affil',
-  label = 'Please list your relevant consortia affiliations.'
+  label = '(Optional) Please list your relevant consortia affiliations.'
 )
 
 sd_question(
@@ -434,7 +426,7 @@ sd_question(
 sd_question(
   type   = 'textarea',
   id     = 'why_stopped_other',
-  label  = 'Please describe the "Other" reason you stopped using AnVIL.'
+  label  = '(Optional) Please describe the "Other" reason you stopped using AnVIL.'
 )
 
 sd_question(
@@ -447,7 +439,7 @@ sd_question(
 sd_question(
   type   = 'textarea',
   id     = 'what_would_help_previous_other',
-  label  = 'Please describe "Other" that would make AnVIL easier or more useful for your work.'
+  label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
 )
 
 sd_question(
@@ -478,7 +470,7 @@ sd_question(
 sd_question(
   type   = 'textarea',
   id     = 'what_would_help_potential_other',
-  label  = 'Please describe "Other" that would make AnVIL easier or more useful for your work.'
+  label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
 )
 
 sd_question(
@@ -652,7 +644,7 @@ sd_question(
 sd_question(
   type  = 'text',
   id    = 'controlled_datasets_use_other',
-  label = 'What "Other" large, controlled-access datasets do you use on the AnVIL?'
+  label = '(Optional) What "Other" large, controlled-access datasets do you use on the AnVIL?'
 )
 
 sd_question(
@@ -832,7 +824,7 @@ sd_question(
 sd_question(
   type   = 'text',
   id     = 'preferred_learning_other_specify',
-  label  = 'What "Other" methods of learning do you prefer?'
+  label  = '(Optional) What "Other" methods of learning do you prefer?'
 )
 
 sd_question(
