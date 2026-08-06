@@ -168,6 +168,8 @@ pagedown::chrome_print("survey.qmd", "sota2026.pdf")
 system("pandoc survey.html -o sota2026.docx")
 ```
 
+<br>
+
 --- welcome
 
 ![](logo-anvil.png){fig-alt="AnVIL" width="180" fig-align="center"}
@@ -208,6 +210,8 @@ sd_question(
 sd_nav(page_next = "page2", show_previous = FALSE)
 ```
 
+<br>
+
 --- screenout
 
 ## Thank you for your interest!
@@ -217,6 +221,8 @@ Unfortunately, you do not meet the eligibility requirements for this poll.
 ```{r}
 sd_close()
 ```
+
+<br>
 
 --- page2
 
@@ -301,6 +307,8 @@ sd_question(
   )
 )
 ```
+
+<br>
 
 --- page3a
 
@@ -405,6 +413,8 @@ sd_question(
 sd_nav(page_next = 'page4')
 ```
 
+<br>
+
 --- page3b
 
 <!-- ## Previous Users -->
@@ -456,6 +466,8 @@ sd_question(
 sd_nav(page_next = 'page10')
 ```
 
+<br>
+
 --- page3c
 
 <!-- ## Potential Users -->
@@ -486,6 +498,8 @@ sd_question(
 
 sd_nav(page_next = 'page10')
 ```
+
+<br>
 
 --- page4
 
@@ -529,6 +543,8 @@ sd_question( ## Rephrase?
 sd_nav(page_next = 'page5')
 ```
 
+<br>
+
 --- page5
 
 ## Specific Use: Group support
@@ -557,6 +573,8 @@ sd_question( ## Rephrase?
 
 sd_nav(page_next = 'page6')
 ```
+
+<br>
 
 --- page6
 
@@ -673,6 +691,8 @@ sd_question( ## Rephrase?
 sd_nav(page_next = 'page7')
 ```
 
+<br>
+
 --- page7
 
 ## Specific Use: Group supervision
@@ -714,6 +734,8 @@ sd_question( ## Rephrase?
 sd_nav(page_next = 'page8')
 ```
 
+<br>
+
 --- page8
 
 ## Specific Use: Educational support
@@ -743,6 +765,8 @@ sd_question( ## Rephrase?
 sd_nav(page_next = 'page9')
 
 ```
+
+<br>
 
 --- page9
 
@@ -840,6 +864,8 @@ sd_nav(page_next = 'page10')
 
 ```
 
+<br>
+
 --- page10
 
 ```{r}
@@ -853,6 +879,8 @@ sd_question(
 sd_nav(page_next = 'end')
 
 ```
+
+<br>
 
 --- end
 
