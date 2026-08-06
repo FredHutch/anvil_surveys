@@ -28,9 +28,57 @@ survey-settings:
   required:
     - consent
     - role
+    - role_other
     - institution_affil
+    - institution_affil_other
+    - data_categories_experience
     - team_member
     - user_description
+    - why_external
+    - why_description
+    - why_description_other
+    - consortia_analysis
+    - consortia_data
+    - consortia_affil
+    - length_of_use
+    - nps_score
+    - why_stopped
+    - why_stopped_other
+    - what_would_help_previous
+    - what_would_help_previous_other
+    - platform_priorities_previous
+    - what_would_help_potential
+    - what_would_help_potential_other
+    - platform_priorities_potential
+    - use_submit_data
+    - use_submit_raw_summarized
+    - use_submit_satisfaction
+    - use_support
+    - use_support_satisfaction
+    - use_interactive
+    - which_interactive_use_anvil
+    - use_workflows
+    - whose_data_use
+    - anvil_data_type
+    - anvil_data_control
+    - controlled_datasets_use
+    - controlled_datasets_use_other
+    - services_use
+    - analyses_satisfaction
+    - use_supervise
+    - use_supervise_questions
+    - use_supervise_satisfaction
+    - use_ed
+    - use_ed_satisfaction
+    - training_questions
+    - training_satisfaction
+    - demos
+    - support_forum
+    - preferred_learning
+    - preferred_learning_other_specify
+
+
+
     
 system-messages:
   cancel: Cancel
@@ -72,6 +120,57 @@ likert_options <- c(
   'Somewhat agree' = 4,
   'Strongly agree' = 5
 )
+
+priority_features <- c(
+  'Access to relevant datasets' = 'data_access',
+  'Cost' = 'cost',
+  'Ease of use / learning curve' = 'usability',
+  'Security and compliance (e.g., controlled-access data)' = 'security',
+  'Computing power or scalability' = 'compute_power',
+  'Availability of pre-built tools or workflows' = 'tools_workflows',
+  'Ability to collaborate with others' = 'collaboration',
+  'Institutional admin / IT support' = 'institutional',
+  'Community or peer support' = 'community'
+)
+
+what_would_help <- c(
+  'Clearer documentation or tutorials' = 'documentation',
+  'A simpler or more intuitive interface' = 'usability',
+  'Lower cost / more funding' = 'cost',
+  'Institutional admin / IT support' = 'institutional',
+  'Access to additional datasets' = 'data_access',
+  'Access to additional tools or workflows' = 'tools_workflows',
+  'More training or onboarding resources' = 'training',
+  'Better integration with other platforms I use' = 'integration',
+  "Nothing - I don't need AnVIL right now" = 'no_need',
+  'None of these' = "none",
+  'Other' = 'other'
+)
+
+what_would_help_previous <- append(c('Nothing — AnVIL already meets my needs' = 'all_met'), 
+                                  what_would_help, 
+                                  after = length(what_would_help) - 2)
+
+priority_options <- c(
+    "Not a priority" = 1,
+    "Low priority" = 2,
+    "Moderate priority" = 3,
+    "High priority" = 4,
+    "Essential" = 5
+  )
+
+yes_no_options <- c(
+  'Yes' = 1,
+  'No' = 0 
+)
+
+yes_no_unsure_options <- c(
+  yes_no_options, 
+  c(
+    'Unsure' = 99
+  )
+)
+
 ```
 
 --- welcome
@@ -108,10 +207,7 @@ sd_question(
   type   = 'mc',
   id     = 'consent',
   label  = "I am 18 or over AND I consent to my responses being used for evaluation and development of the AnVIL platform.",
-  option = c(
-    'Yes' = 1,
-    'No'  = 0
-  )
+  option = yes_no_options
 )
 
 sd_nav(page_next = "page2", show_previous = FALSE)
@@ -194,10 +290,7 @@ sd_question(
   type   = 'mc',
   id     = 'team_member',
   label  = 'Are you currently part of the AnVIL Internal Team?',
-  option = c(
-    'Yes' = 1, #skip to page 4
-    'No'  = 0 #send to next question
-  )
+  option = yes_no_options #yes skip to page4; no send to next page
 )
 
 sd_question(
@@ -260,20 +353,14 @@ sd_question( ### <-- WHAT DO WE HOPE TO LEARN
   type   = 'mc',
   id     = 'consortia_analysis',
   label  = 'Does your consortium run analyses with AnVIL?',
-  option = c(
-    'Yes' = 1,
-    'No' = 0
-  )
+  option = yes_no_options
 )
 
 sd_question( ### <-- WHAT DO WE HOPE TO LEARN
   type   = 'mc',
   id     = 'consortia_data',
   label  = 'Does your consortium use AnVIL to store or release data?',
-  option = c(
-    'Yes' = 1,
-    'No'  = 0
-  )
+  option = yes_no_options
 )
 
 sd_question( ### <-- WHAT DO WE HOPE TO LEARN
@@ -354,20 +441,7 @@ sd_question(
   type   = 'mc_multiple',
   id     = 'what_would_help_previous',
   label  = 'What would make AnVIL easier or more useful for your work? (select all that apply)',
-  option = c(
-    'Clearer documentation or tutorials' = 'documentation',
-    'A simpler or more intuitive interface' = 'usability',
-    'Lower cost / more funding' = 'cost',
-    'Institutional admin / IT support' = 'institutional',
-    'Access to additional datasets' = 'data_access',
-    'Access to additional tools or workflows' = 'tools_workflows',
-    'More training or onboarding resources' = 'training',
-    'Better integration with other platforms I use' = 'integration',
-    "Nothing - I don't need AnVIL right now" = 'no_need',
-    'Nothing — AnVIL already meets my needs' = 'all_met',
-    'None of these' = "none",
-    'Other' = 'other'
-  )
+  option = what_would_help_previous
 )
 
 sd_question(
@@ -380,24 +454,8 @@ sd_question(
   type   = 'matrix',  # or mc_multiple??
   id     = 'platform_priorities_previous',
   label  = 'When choosing a computing platform for your work, how important are the following?',
-  row = c(
-    'Access to relevant datasets' = 'data_access',
-    'Cost' = 'cost',
-    'Ease of use / learning curve' = 'usability',
-    'Security and compliance (e.g., controlled-access data)' = 'security',
-    'Computing power or scalability' = 'compute_power',
-    'Availability of pre-built tools or workflows' = 'tools_workflows',
-    'Ability to collaborate with others' = 'collaboration',
-    'Institutional admin / IT support' = 'institutional',
-    'Community or peer support' = 'community'
-  ),
-  option = c(
-    "Not a priority" = 1,
-    "Low priority" = 2,
-    "Moderate priority" = 3,
-    "High priority" = 4,
-    "Essential" = 5
-  )
+  row = priority_features,
+  option = priority_options
 )
 
 sd_nav(page_next = 'page10')
@@ -414,19 +472,7 @@ sd_question(
   type   = 'mc_multiple',
   id     = 'what_would_help_potential',
   label  = 'What would make AnVIL easier or more useful for your work? (select all that apply)',
-  option = c(
-    'Clearer documentation or tutorials' = 'documentation',
-    'A simpler or more intuitive interface' = 'usability',
-    'Lower cost / more funding' = 'cost',
-    'Institutional admin / IT support' = 'institutional',
-    'Access to additional datasets' = 'data_access',
-    'Access to additional tools or workflows' = 'tools_workflows',
-    'More training or onboarding resources' = 'training',
-    'Better integration with other platforms I use' = 'integration',
-    "Nothing - I don't need AnVIL right now" = 'no_need',
-    'None of these' = "none",
-    'Other' = 'other'
-  )
+  option = what_would_help
 )
 
 sd_question(
@@ -439,24 +485,8 @@ sd_question(
   type   = 'matrix',  # or mc_multiple??
   id     = 'platform_priorities_potential',
   label  = 'When choosing a computing platform for your work, how important are the following?',
-  row = c(
-    'Access to relevant datasets' = 'data_access',
-    'Cost' = 'cost',
-    'Ease of use / learning curve' = 'usability',
-    'Security and compliance (e.g., controlled-access data)' = 'security',
-    'Computing power or scalability' = 'compute_power',
-    'Availability of pre-built tools or workflows' = 'tools_workflows',
-    'Ability to collaborate with others' = 'collaboration',
-    'Institutional admin / IT support' = 'institutional',
-    'Community or peer support' = 'community'
-  ),
-  option = c(
-    "Not a priority" = 1,
-    "Low priority" = 2,
-    "Moderate priority" = 3,
-    "High priority" = 4,
-    "Essential" = 5
-  )
+  row = priority_features,
+  option = priority_options
 )
 
 sd_nav(page_next = 'page10')
@@ -474,21 +504,16 @@ sd_question(
   type   = 'mc',
   id     = 'use_submit_data',
   label  = 'Do you submit or manage data (e.g., for a consortium or lab)?',
-  option = c(
-    'Yes' = 1,
-    'No' = 0,
-    'Unsure' = 99 #don't ask about anything
-  )
+  option = yes_no_unsure_options
 )
 
-sd_question(#mc_multiple instead?
-  type   = 'mc',
+sd_question(
+  type   = 'mc_multiple',
   id     = 'use_submit_raw_summarized',
   label  = 'Do you submit or manage raw data (e.g., sequencing reads) or summarized data (e.g., count tables, variant calls, etc.)?',
   option = c(
     'Raw data' = 'raw',
     'Summarized data' = 'summarized',
-    'Both raw and summarized data' = 'both',
     'Unsure' = 'unsure'
   )
 )
@@ -503,7 +528,7 @@ sd_question(
 sd_question( ## Rephrase?
   type   = 'textarea',
   id     = 'what_would_help_submit',
-  label  = 'What would make AnVIL easier or more useful **for your data submission or management work**?'
+  label  = '(Optional) What would make AnVIL easier or more useful **for your data submission or management work**?'
 )
 
 sd_nav(page_next = 'page5')
@@ -519,10 +544,7 @@ sd_question(
   type   = 'mc',
   id     = 'use_support',
   label  = 'Do you perform group support tasks (e.g., managing or tracking billing)?',
-  option = c(
-    'Yes' = 1,
-    'No' = 0
-  )
+  option = yes_no_options
 )
 
 sd_question(
@@ -535,7 +557,7 @@ sd_question(
 sd_question( ## Rephrase?
   type   = 'textarea',
   id     = 'what_would_help_use_support',
-  label  = 'What would make **your support tasks on AnVIL** easier or more useful?'
+  label  = '(Optional) What would make **your support tasks on AnVIL** easier or more useful?'
 )
 
 sd_nav(page_next = 'page6')
@@ -551,11 +573,7 @@ sd_question(
   type   = 'mc',
   id     = 'use_interactive',
   label  = 'Do you run interactive analyses (e.g., using Galaxy in AnVIL, Jupyter Notebooks, RStudio)?',
-  option = c(
-    'Yes' = 1,
-    'No' = 0,
-    'Unsure' = 99
-  )
+  option = yes_no_unsure_options
 )
 
 sd_question(
@@ -572,18 +590,14 @@ sd_question(
 sd_question(
   type   = 'textarea',
   id     = 'which_interactive_use_separate',
-  label  = 'Which interactive analysis solutions do you utilize **separate from the AnVIL**?',
+  label  = '(Optional) Which interactive analysis solutions do you utilize **separate from the AnVIL**?',
 )
 
 sd_question(
   type   = 'mc',
   id     = 'use_workflows',
   label  = 'Do you run scalable workflows (e.g., WDL)?',
-  option = c(
-    'Yes' = 1,
-    'No' = 0,
-    'Unsure' = 99
-  )
+  option = yes_no_unsure_options
 )
 
 sd_question(
@@ -605,8 +619,6 @@ sd_question(
     'Summarized data' = 'summarized'
   )
 )
-
-#add a question asking if they use GTEx data?
 
 sd_question(
   type   = 'mc_multiple',
@@ -647,10 +659,7 @@ sd_question(
   type = 'mc',
   id = 'services_use',
   label = 'Do you use data services (e.g., All of Us + AnVIL Imputation)?',
-  option = c(
-    'Yes' = 1,
-    'No' = 0
-  )
+  option = yes_no_options
 )
 
 sd_question(
@@ -663,7 +672,7 @@ sd_question(
 sd_question( ## Rephrase?
   type   = 'textarea',
   id     = 'what_would_help_services',
-  label  = 'What would make AnVIL easier or more useful for **running analyses**?'
+  label  = '(Optional) What would make AnVIL easier or more useful for **running analyses**?'
 )
 
 sd_nav(page_next = 'page7')
@@ -679,10 +688,7 @@ sd_question(
   type   = 'mc',
   id     = 'use_supervise',
   label  = 'Do you supervise (e.g., plan and monitor) the use of the AnVIL platform by others rather than only running analyses or submitting data yourself?',
-  option = c(
-    'Yes' = 1,
-    'No' = 0
-  )
+  option = yes_no_options
 )
 
 sd_question(
@@ -707,7 +713,7 @@ sd_question(
 sd_question( ## Rephrase?
   type   = 'textarea',
   id     = 'what_would_help_supervise',
-  label  = 'What would make AnVIL easier or more useful for **supervising others**?'
+  label  = '(Optional) What would make AnVIL easier or more useful for **supervising others**?'
 )
 
 sd_nav(page_next = 'page8')
@@ -723,10 +729,7 @@ sd_question(
   type   = 'mc',
   id     = 'use_ed',
   label  = 'Do you use the AnVIL platform for training or courses that you are leading?',
-  option = c(
-    'Yes' = 1,
-    'No' = 0
-  )
+  option = yes_no_options
 )
 
 sd_question(
@@ -739,7 +742,7 @@ sd_question(
 sd_question( ## Rephrase?
   type   = 'textarea',
   id     = 'what_would_help_ed',
-  label  = 'What would make AnVIL easier or more useful for **training or leading courses**?'
+  label  = '(Optional) What would make AnVIL easier or more useful for **training or leading courses**?'
 )
 
 sd_nav(page_next = 'page9')
@@ -773,7 +776,7 @@ sd_question(
 sd_question(
   type = 'textarea',
   id = 'training_satisfaction_barrier',
-  label = 'What AnVIL resources would make your learning easier or more relevant?'
+  label = '(Optional) What AnVIL resources would make your learning easier or more relevant?'
 )
 
 sd_question( #<- tentatively remove
@@ -835,7 +838,7 @@ sd_question(
 sd_question(
     type = 'textarea',
     id   = 'training_wanted',
-    label = 'Please share any additional training resources or topics you would like to see.'
+    label = '(Optional) Please share any additional training resources or topics you would like to see.'
 )
 
 sd_nav(page_next = 'page10')
@@ -849,7 +852,7 @@ sd_nav(page_next = 'page10')
 sd_question(
   type = 'textarea',
   id = 'aspirational_roadmap',
-  label = 'Overall, what is the most important thing you think the AnVIL team should focus on?'
+  label = '(Optional) Overall, what is the most important thing you think the AnVIL team should focus on?'
 )
 
 sd_nav(page_next = 'end')
