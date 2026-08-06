@@ -161,6 +161,12 @@ yes_no_unsure_options <- c(
 
 ```
 
+```{r eval = FALSE}
+# Render print versions
+pagedown::chrome_print("survey.qmd", "sota2026.pdf")
+system("pandoc survey.html -o sota2026.docx")
+```
+
 --- welcome
 
 ![](style/logo-anvil.png){fig-alt="AnVIL" width="180" fig-align="center"}
