@@ -178,10 +178,13 @@ server <- function(input, output, session) {
     training_wants_eval() ~ "training_wanted",
     preferred_learning_option() ~ "preferred_learning_other_specify"
   )
-
   sd_server(db = db)
 
 }
 
 # Launch the app
-shiny::shinyApp(ui = ui, server = server)
+opts <- list()
+if (!interactive()) {
+  opts <- list(port = 8080, host = "0.0.0.0", launch.browser = FALSE)
+}
+shiny::shinyApp(ui = ui, server = server, options = opts)

@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  anvil-surveys:
+    image: sc-registry.fredhutch.org/anvil-surveys:latest
+    networks:
+      - sc-swarm-net
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "org.fredhutch.first_deployed_date=2026-08-07T17:21:49Z"
+        - "org.fredhutch.app.owner=ahoffma2@fredhutch.org"
+        - "org.fredhutch.github.repo=anvil_surveys"
+        - "traefik.enable=true"
+        - "traefik.http.routers.anvil-surveys.rule=Host(`anviloutreach.fredhutch.org`)"
+        - "traefik.http.routers.anvil-surveys-secured.rule=Host(`anviloutreach.fredhutch.org`)"
+        - "traefik.http.routers.anvil-surveys.entrypoints=web,web-secured"
+        - "traefik.http.services.anvil-surveys.loadbalancer.server.port=80" # it seems you always need to give traefik a port so it 'notices' the service
+        - "traefik.http.routers.anvil-surveys.tls=true"
+
+networks:
+  sc-swarm-net:
+    external: true
