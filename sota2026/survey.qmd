@@ -99,7 +99,8 @@ satisfaction_options <- c(
   'Dissatisfied' = 2,
   'Neutral' = 3,
   'Satisfied' = 4,
-  'Very satisfied' = 5
+  'Very satisfied' = 5,
+  'Not sure' = 99
 )
 
 likert_options <- c(
@@ -519,10 +520,10 @@ sd_question(
 sd_question(
   type   = 'mc_multiple',
   id     = 'use_submit_raw_summarized',
-  label  = 'Do you submit or manage raw data (e.g., sequencing reads) or summarized data (e.g., count tables, variant calls, etc.)? (select all that apply)',
+  label  = 'Do you submit or manage raw data (e.g., sequencing reads) or processed / summarized data (e.g., alignments, count tables, variant calls, etc.)? (select all that apply)',
   option = c(
     'Raw data' = 'raw',
-    'Summarized data' = 'summarized',
+    'Processed / Summarized data' = 'summarized',
     'Unsure' = 'unsure'
   )
 )
@@ -626,10 +627,10 @@ sd_question(
 sd_question(
   type   = 'mc_multiple',
   id     = 'anvil_data_type',
-  label  = 'Do you access raw data (e.g., sequencing reads) or summarized data (e.g., count tables, variant calls, etc.)? (select all that apply)',
+  label  = 'Do you access raw data (e.g., sequencing reads) or processed / summarized data (e.g., alignments, count tables, variant calls, etc.)? (select all that apply)',
   option = c(
     'Raw data' = 'raw',
-    'Summarized data' = 'summarized'
+    'Processed / Summarized data' = 'summarized'
   )
 )
 
