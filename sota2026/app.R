@@ -56,6 +56,8 @@ server <- function(input, output, session) {
     if (is.null(val)) return(FALSE)
     if (val %in% 7:10) return(FALSE)
     if (val %in% 0:6) return(TRUE)
+    if (val == 99) return(TRUE) #unsure
+    if (val == 98) return(FALSE) #prefer not to answer
     return(FALSE)
   }
   
@@ -69,8 +71,10 @@ server <- function(input, output, session) {
   
   satisfaction_eval <- function(val){
     if (is.null(val)) return(FALSE)
-    if (val == 5) return (FALSE)
-    if (val %in% 1:4) return(TRUE)
+    if (val == 5) return (FALSE) #Very satisfied
+    if (val == 98) return (FALSE) #prefer not to answer
+    if (val == 99) return (TRUE) #unsure
+    if (val %in% 1:4) return(TRUE) #any level of satisfaction below very satisfied
     return(FALSE)
   }
   
@@ -101,7 +105,9 @@ server <- function(input, output, session) {
   training_wants_eval <- function(){
     val <- sd_value("training_satisfaction")
     if (is.null(val)) return(FALSE)
+    if (val == 99) return(FALSE) #unsure
     if (val == 5) return(TRUE)
+    if (val == 98) return(TRUE) #prefer not to answer
     return(FALSE)
   }
   
