@@ -150,7 +150,10 @@ server <- function(input, output, session) {
     "other" %in% sd_value(what_would_help_potential) ~ "what_would_help_potential_other",
     
     #page 4 specific use data submission
+    sd_value(use_submit_data) == 1 ~ "use_submit_genomic_clinical",
     sd_value(use_submit_data) == 1 ~ "use_submit_raw_summarized",
+    "clinical" %in% sd_value(use_submit_genomic_clinical) ~ "use_data_dict",
+    sd_value(use_data_dict) == 1 ~ "data_dict_explain",
     sd_value(use_submit_data) == 1 ~ "use_submit_satisfaction",
     submit_satisfaction() ~ "what_would_help_submit",
     
