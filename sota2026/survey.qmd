@@ -44,6 +44,8 @@ survey-settings:
     - what_would_help_potential
     - platform_priorities_potential
     - use_submit_data
+    - use_submit_genomic_clinical
+    - use_data_dict
     - use_submit_raw_summarized
     - use_submit_satisfaction
     - use_support
@@ -261,11 +263,11 @@ sd_question(
 )
 
 sd_question(
-  type   = 'mc',
+  type   = 'mc_multiple',
   id     = 'institution_affil',
-  label  = 'What type of institution are you affiliated with?',
+  label  = 'What type of institution are you affiliated with? (select all that apply)',
   option = c(
-    'Research Intensive Institution' = 'research',
+    'Research Intensive Institution (e.g., institutes, R1/academic, etc.) ' = 'research',
     'Teaching Focused Institution' = 'teaching',
     'Hospital/Medical Center or School' = 'clinical',
     'Government' = 'gov',
@@ -450,6 +452,12 @@ sd_question(
 )
 
 sd_question(
+  type  = 'textarea',
+  id    = 'why_stopped_explain',
+  label = '(Optional) Provide further detail concerning what factored into your response above.'
+)
+
+sd_question(
   type   = 'textarea',
   id     = 'why_stopped_other',
   label  = '(Optional) Please describe the "Other" reason you stopped using AnVIL.'
@@ -466,6 +474,12 @@ sd_question(
   type   = 'textarea',
   id     = 'what_would_help_previous_other',
   label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
+)
+
+sd_question(
+  type  = 'textarea',
+  id    = 'what_would_help_previous_explain',
+  label = '(Optional) Provide further detail concerning what factored into your response above.'
 )
 
 sd_question(
@@ -502,6 +516,12 @@ sd_question(
 )
 
 sd_question(
+  type  = 'textarea',
+  id    = 'what_would_help_potential_explain',
+  label = '(Optional) Provide further detail concerning what factored into your response above.'
+)
+
+sd_question(
   type   = 'matrix',  # or mc_multiple??
   id     = 'platform_priorities_potential',
   label  = 'When choosing a computing platform for your work, how important are the following?',
@@ -527,6 +547,30 @@ sd_question(
   id     = 'use_submit_data',
   label  = 'Do you submit to or manage data (e.g., for a consortium or lab) on the AnVIL?',
   option = yes_no_unsure_options
+)
+
+sd_question(
+  type   = 'mc_multiple',
+  id     = 'use_submit_genomic_clinical',
+  label  = 'What types of data do you submit or manage? (select all that apply)',
+  option = c(
+    'Genomic data' = 'genomic',
+    'Clinical data' = 'clinical',
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'use_data_dict',
+  label  = 'Have you utilized the new data dictionary while submitting clinical data?',
+  option = yes_no_unsure_options
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'data_dict_explain',
+  label  = '(Optional) What did you think of your experience with the data dictionary while submitting clinical data?'
 )
 
 sd_question(
@@ -684,7 +728,7 @@ sd_question(
 sd_question(
   type = 'mc',
   id = 'services_use',
-  label = 'Do you use data services on the AnVIL (e.g., All of Us + AnVIL Imputation)?',
+  label = 'Do you use data services on the AnVIL (e.g., *seqr* on AnVIL or All of Us + AnVIL Imputation)?',
   option = yes_no_na_options
 )
 
