@@ -132,7 +132,7 @@ server <- function(input, output, session) {
   
     #page 2 Demographics
     sd_value(role) == "other" ~ "role_other",
-    sd_value(institution_affil) == "other" ~ "institution_affil_other",
+    "other" %in% sd_value(institution_affil) ~ "institution_affil_other",
     sd_value(team_member) == 0 ~ "user_description",
     
     #page 3a Utilization
