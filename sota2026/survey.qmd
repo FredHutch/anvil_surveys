@@ -471,15 +471,15 @@ sd_question(
 )
 
 sd_question(
-  type   = 'textarea',
-  id     = 'what_would_help_previous_other',
-  label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
-)
-
-sd_question(
   type  = 'textarea',
   id    = 'what_would_help_previous_explain',
   label = '(Optional) Provide further detail concerning what factored into your response above.'
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'what_would_help_previous_other',
+  label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
 )
 
 sd_question(
@@ -510,15 +510,15 @@ sd_question(
 )
 
 sd_question(
-  type   = 'textarea',
-  id     = 'what_would_help_potential_other',
-  label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
-)
-
-sd_question(
   type  = 'textarea',
   id    = 'what_would_help_potential_explain',
   label = '(Optional) Provide further detail concerning what factored into your response above.'
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'what_would_help_potential_other',
+  label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
 )
 
 sd_question(
@@ -552,12 +552,18 @@ sd_question(
 sd_question(
   type   = 'mc_multiple',
   id     = 'use_submit_genomic_clinical',
-  label  = 'What types of data do you submit or manage? (select all that apply)',
+  label  = 'What types of data do you submit or manage on the AnVIL? (select all that apply)',
   option = c(
     'Genomic data' = 'genomic',
     'Clinical data' = 'clinical',
     'Other' = 'other'
   )
+)
+
+sd_question(
+  type  = 'text',
+  id    = 'submit_data_other',
+  label = '(Optional) What "Other" types of data do you submit or manage on the AnVIL?'
 )
 
 sd_question(
