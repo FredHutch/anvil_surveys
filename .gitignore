@@ -37,7 +37,8 @@ vignettes/*.pdf
 *.knit.md
 
 # R Environment Variables
-.Renviron
+.Environ
+.env
 
 # pkgdown site
 docs/
