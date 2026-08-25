@@ -23,6 +23,7 @@ stages:
 build:
   stage: build
   script:
+    - echo $DOTENV_BASE64 | base64 -d > sota2026/.env
     - docker build -t sc-registry.fredhutch.org/anvil-surveys:$CI_COMMIT_SHORT_SHA .
 
 test:

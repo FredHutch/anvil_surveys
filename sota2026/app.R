@@ -185,6 +185,6 @@ server <- function(input, output, session) {
 # Launch the app
 opts <- list()
 if (!interactive()) {
-  opts <- list(port = 8080, host = "0.0.0.0", launch.browser = FALSE)
+  opts <- list(port = 8080, host = "127.0.0.1", launch.browser = FALSE)
 }
 shiny::shinyApp(ui = ui, server = server, options = opts)
