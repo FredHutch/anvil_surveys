@@ -46,6 +46,7 @@ survey-settings:
     - use_submit_data
     - use_submit_genomic_clinical
     - use_data_dict
+    - data_dict_likert
     - use_submit_raw_summarized
     - use_submit_satisfaction
     - use_support
