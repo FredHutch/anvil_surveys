@@ -143,11 +143,8 @@ server <- function(input, output, session) {
     nps_score_eval() ~ "nps_score_explain",
     
     #page3b previous use
-    "other" %in% sd_value(why_stopped) ~ "why_stopped_other",
-    "other" %in% sd_value(what_would_help_previous) ~ "what_would_help_previous_other",
     
     #page3c potential use
-    "other" %in% sd_value(what_would_help_potential) ~ "what_would_help_potential_other",
     
     #page 4 specific use data submission
     sd_value(use_submit_data) == 1 ~ "use_submit_genomic_clinical",
