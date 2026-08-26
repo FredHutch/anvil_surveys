@@ -551,7 +551,7 @@ sd_question(
 sd_question(
   type   = 'mc',
   id     = 'use_data_dict',
-  label  = 'Have you submitted a data dictionary to the AnVIL [following this process](https://anvilproject.org/learn/data-submitters/submission-guide/set-up-a-data-model)?',
+  label  = 'Have you submitted a data dictionary to the AnVIL [following the revised 09-2025 Data Model process](https://anvilproject.org/learn/data-submitters/submission-guide/set-up-a-data-model)?',
   option = yes_no_unsure_options
 )
 
