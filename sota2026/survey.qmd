@@ -454,7 +454,7 @@ sd_question(
 sd_question(
   type  = 'textarea',
   id    = 'why_stopped_explain',
-  label = '(Optional) Provide further detail concerning what factored into your response above.'
+  label = '(Optional) Please share what factored into your response above.'
 )
 
 sd_question(
@@ -473,7 +473,7 @@ sd_question(
 sd_question(
   type  = 'textarea',
   id    = 'what_would_help_previous_explain',
-  label = '(Optional) Provide further detail concerning what factored into your response above.'
+  label = '(Optional) Please share what factored into your response above.'
 )
 
 sd_question(
@@ -512,7 +512,7 @@ sd_question(
 sd_question(
   type  = 'textarea',
   id    = 'what_would_help_potential_explain',
-  label = '(Optional) Provide further detail concerning what factored into your response above.'
+  label = '(Optional) Please share what factored into your response above.'
 )
 
 sd_question(
