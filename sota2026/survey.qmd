@@ -551,14 +551,21 @@ sd_question(
 sd_question(
   type   = 'mc',
   id     = 'use_data_dict',
-  label  = 'Have you utilized the new data dictionary while submitting clinical data?',
+  label  = 'Have you submitted a data dictionary to the AnVIL [following this process](https://anvilproject.org/learn/data-submitters/submission-guide/set-up-a-data-model)?',
   option = yes_no_unsure_options
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'data_dict_likert',
+  label  =  'How would you rate your satisfaction with the experience?',
+  option = satisfaction_options
 )
 
 sd_question(
   type   = 'textarea',
   id     = 'data_dict_explain',
-  label  = '(Optional) What did you think of your experience with the data dictionary while submitting clinical data?'
+  label  = '(Optional) Please share what factored into your response above.'
 )
 
 sd_question(
