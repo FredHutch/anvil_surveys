@@ -458,12 +458,6 @@ sd_question(
 )
 
 sd_question(
-  type   = 'textarea',
-  id     = 'why_stopped_other',
-  label  = '(Optional) Please describe the "Other" reason you stopped using AnVIL.'
-)
-
-sd_question(
   type   = 'mc_multiple',
   id     = 'what_would_help_previous',
   label  = 'What would make AnVIL easier or more useful for your work? (select all that apply)',
@@ -474,12 +468,6 @@ sd_question(
   type  = 'textarea',
   id    = 'what_would_help_previous_explain',
   label = '(Optional) Please share what factored into your response above.'
-)
-
-sd_question(
-  type   = 'textarea',
-  id     = 'what_would_help_previous_other',
-  label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
 )
 
 sd_question(
@@ -513,12 +501,6 @@ sd_question(
   type  = 'textarea',
   id    = 'what_would_help_potential_explain',
   label = '(Optional) Please share what factored into your response above.'
-)
-
-sd_question(
-  type   = 'textarea',
-  id     = 'what_would_help_potential_other',
-  label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
 )
 
 sd_question(
