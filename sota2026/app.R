@@ -151,6 +151,7 @@ server <- function(input, output, session) {
     sd_value(use_submit_data) == 1 ~ "use_submit_raw_summarized",
     "clinical" %in% sd_value(use_submit_genomic_clinical) ~ "use_data_dict",
     "other" %in% sd_value(use_submit_genomic_clinical) ~ "submit_data_other",
+    sd_value(use_data_dict) == 1 ~ "data_dict_likert",
     sd_value(use_data_dict) == 1 ~ "data_dict_explain",
     sd_value(use_submit_data) == 1 ~ "use_submit_satisfaction",
     submit_satisfaction() ~ "what_would_help_submit",
