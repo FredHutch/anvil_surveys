@@ -132,7 +132,7 @@ server <- function(input, output, session) {
   
     #page 2 Demographics
     sd_value(role) == "other" ~ "role_other",
-    sd_value(institution_affil) == "other" ~ "institution_affil_other",
+    "other" %in% sd_value(institution_affil) ~ "institution_affil_other",
     sd_value(team_member) == 0 ~ "user_description",
     
     #page 3a Utilization
@@ -143,14 +143,16 @@ server <- function(input, output, session) {
     nps_score_eval() ~ "nps_score_explain",
     
     #page3b previous use
-    "other" %in% sd_value(why_stopped) ~ "why_stopped_other",
-    "other" %in% sd_value(what_would_help_previous) ~ "what_would_help_previous_other",
     
     #page3c potential use
-    "other" %in% sd_value(what_would_help_potential) ~ "what_would_help_potential_other",
     
     #page 4 specific use data submission
+    sd_value(use_submit_data) == 1 ~ "use_submit_genomic_clinical",
     sd_value(use_submit_data) == 1 ~ "use_submit_raw_summarized",
+    "clinical" %in% sd_value(use_submit_genomic_clinical) ~ "use_data_dict",
+    "other" %in% sd_value(use_submit_genomic_clinical) ~ "submit_data_other",
+    sd_value(use_data_dict) == 1 ~ "data_dict_likert",
+    sd_value(use_data_dict) == 1 ~ "data_dict_explain",
     sd_value(use_submit_data) == 1 ~ "use_submit_satisfaction",
     submit_satisfaction() ~ "what_would_help_submit",
     
