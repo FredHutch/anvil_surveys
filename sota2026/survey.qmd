@@ -44,6 +44,9 @@ survey-settings:
     - what_would_help_potential
     - platform_priorities_potential
     - use_submit_data
+    - use_submit_genomic_clinical
+    - use_data_dict
+    - data_dict_likert
     - use_submit_raw_summarized
     - use_submit_satisfaction
     - use_support
@@ -99,7 +102,9 @@ satisfaction_options <- c(
   'Dissatisfied' = 2,
   'Neutral' = 3,
   'Satisfied' = 4,
-  'Very satisfied' = 5
+  'Very satisfied' = 5,
+  'Unsure' = 99,
+  'Prefer not to answer' = 98
 )
 
 likert_options <- c(
@@ -160,6 +165,13 @@ yes_no_unsure_options <- c(
   )
 )
 
+yes_no_na_options <- c(
+  yes_no_options,
+  c(
+    'NA' = 97
+  )
+)
+
 ```
 
 ```{r eval = FALSE}
@@ -180,11 +192,13 @@ system("pandoc survey.html -o sota2026.docx")
 
 Thank you for participating in the State of the AnVIL 2026 Community Poll!
 
-[AnVIL](https://anvilproject.org/) (the NHGRI Genomic Data Science Analysis, Visualization, and Informatics Lab-space) is a unified environment for secure data management and computing. It enables cloud-based analysis of large datasets without the need to move that data.
+[AnVIL](https://anvilproject.org/) (the NHGRI Genomic Data Science Analysis, Visualization, and Informatics Lab-space) is a unified environment for secure data management and computing. It enables cloud-based analysis of large datasets directly in place, without the need to transfer that data elsewhere.
 
 This poll aims to understand your experience with the AnVIL platform, including your needs and any barriers to adoption, by collecting data on usage, experiences, and preferences. It should take 10–15 minutes to complete.
 
 Your feedback will directly shape how we develop AnVIL to better support your work and research needs.
+
+Thank you for participating in the State of the AnVIL 2026 Community Poll!
 
 **DATA CONFIDENTIALITY**: Responses are anonymous. Data will be stored on a private, password-protected server with access restricted to members of the AnVIL Team.
 
@@ -237,7 +251,7 @@ sd_question(
   option = c(
     'Student (undergraduate, graduate, or medical)' = 'student',
     'Postdoc' = 'postdoc',
-    'Academic (professor or principal investigator)' = 'academic',
+    'Academic (faculty, staff, professor or principal investigator)' = 'academic',
     'Service (staff scientist, research assistant, bioinformatician, program administrator)' = 'service',
     'Other' = 'other'
   )
@@ -250,11 +264,11 @@ sd_question(
 )
 
 sd_question(
-  type   = 'mc',
+  type   = 'mc_multiple',
   id     = 'institution_affil',
-  label  = 'What type of institution are you affiliated with?',
+  label  = 'What type of institution are you affiliated with? (select all that apply)',
   option = c(
-    'Research Intensive Institution' = 'research',
+    'Research Intensive Institution (e.g., institutes, R1/academic, etc.) ' = 'research',
     'Teaching Focused Institution' = 'teaching',
     'Hospital/Medical Center or School' = 'clinical',
     'Government' = 'gov',
@@ -356,14 +370,14 @@ sd_question( ### <-- WHAT DO WE HOPE TO LEARN
   type   = 'mc',
   id     = 'consortia_analysis',
   label  = 'Does your consortium run analyses with AnVIL?',
-  option = yes_no_options
+  option = yes_no_unsure_options
 )
 
 sd_question( ### <-- WHAT DO WE HOPE TO LEARN
   type   = 'mc',
   id     = 'consortia_data',
   label  = 'Does your consortium use AnVIL to store or release data?',
-  option = yes_no_options
+  option = yes_no_unsure_options
 )
 
 sd_question( ### <-- WHAT DO WE HOPE TO LEARN
@@ -400,7 +414,9 @@ sd_question(
     '7' = 7, 
     '8' = 8, 
     '9' = 9,
-    '10 - Extremely likely' = 10
+    '10 - Extremely likely' = 10,
+    'Unsure' = 99,
+    'Prefer not to answer' = 98
   )
 )
 
@@ -437,9 +453,9 @@ sd_question(
 )
 
 sd_question(
-  type   = 'textarea',
-  id     = 'why_stopped_other',
-  label  = '(Optional) Please describe the "Other" reason you stopped using AnVIL.'
+  type  = 'textarea',
+  id    = 'why_stopped_explain',
+  label = '(Optional) Please share what factored into your response above.'
 )
 
 sd_question(
@@ -450,9 +466,9 @@ sd_question(
 )
 
 sd_question(
-  type   = 'textarea',
-  id     = 'what_would_help_previous_other',
-  label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
+  type  = 'textarea',
+  id    = 'what_would_help_previous_explain',
+  label = '(Optional) Please share what factored into your response above.'
 )
 
 sd_question(
@@ -483,9 +499,9 @@ sd_question(
 )
 
 sd_question(
-  type   = 'textarea',
-  id     = 'what_would_help_potential_other',
-  label  = '(Optional) Please describe "Other" that would make AnVIL easier or more useful for your work.'
+  type  = 'textarea',
+  id    = 'what_would_help_potential_explain',
+  label = '(Optional) Please share what factored into your response above.'
 )
 
 sd_question(
@@ -512,17 +528,54 @@ sd_nav(page_next = 'page10')
 sd_question(
   type   = 'mc',
   id     = 'use_submit_data',
-  label  = 'Do you submit or manage data (e.g., for a consortium or lab)?',
+  label  = 'Do you submit to or manage data (e.g., for a consortium or lab) on the AnVIL?',
   option = yes_no_unsure_options
 )
 
 sd_question(
   type   = 'mc_multiple',
+  id     = 'use_submit_genomic_clinical',
+  label  = 'What types of data do you submit or manage on the AnVIL? (select all that apply)',
+  option = c(
+    'Genomic data' = 'genomic',
+    'Clinical data' = 'clinical',
+    'Other' = 'other'
+  )
+)
+
+sd_question(
+  type  = 'text',
+  id    = 'submit_data_other',
+  label = '(Optional) What "Other" types of data do you submit or manage on the AnVIL?'
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'use_data_dict',
+  label  = 'Have you submitted a data dictionary to the AnVIL [following the revised 09-2025 Data Model process](https://anvilproject.org/learn/data-submitters/submission-guide/set-up-a-data-model)?',
+  option = yes_no_unsure_options
+)
+
+sd_question(
+  type   = 'mc',
+  id     = 'data_dict_likert',
+  label  =  'How would you rate your satisfaction with the experience?',
+  option = satisfaction_options
+)
+
+sd_question(
+  type   = 'textarea',
+  id     = 'data_dict_explain',
+  label  = '(Optional) Please share what factored into your response above.'
+)
+
+sd_question(
+  type   = 'mc_multiple',
   id     = 'use_submit_raw_summarized',
-  label  = 'Do you submit or manage raw data (e.g., sequencing reads) or summarized data (e.g., count tables, variant calls, etc.)? (select all that apply)',
+  label  = 'Do you submit or manage raw data (e.g., sequencing reads) or processed / summarized data (e.g., alignments, count tables, variant calls, etc.)? (select all that apply)',
   option = c(
     'Raw data' = 'raw',
-    'Summarized data' = 'summarized',
+    'Processed / Summarized data' = 'summarized',
     'Unsure' = 'unsure'
   )
 )
@@ -554,7 +607,7 @@ sd_nav(page_next = 'page5')
 sd_question(
   type   = 'mc',
   id     = 'use_support',
-  label  = 'Do you perform group support tasks (e.g., managing or tracking billing)?',
+  label  = 'Do you perform group support or administrative tasks on AnVIL (e.g., managing or tracking billing)?',
   option = yes_no_options
 )
 
@@ -585,8 +638,8 @@ sd_nav(page_next = 'page6')
 sd_question(
   type   = 'mc',
   id     = 'use_interactive',
-  label  = 'Do you run interactive analyses (e.g., using Galaxy in AnVIL, Jupyter Notebooks, RStudio)?',
-  option = yes_no_unsure_options
+  label  = 'Do you run interactive analyses on AnVIL (e.g., using Galaxy, Jupyter Notebooks, RStudio)?',
+  option = yes_no_na_options
 )
 
 sd_question(
@@ -596,7 +649,7 @@ sd_question(
   option = c(
     'Jupyter Notebooks / terminal' = 'jupyter_notebooks',
     'RStudio' = 'rstudio',
-    'Galaxy in AnVIL' = 'galaxy'
+    'Galaxy' = 'galaxy'
   )
 )
 
@@ -609,8 +662,8 @@ sd_question(
 sd_question(
   type   = 'mc',
   id     = 'use_workflows',
-  label  = 'Do you run scalable workflows (e.g., WDL)?',
-  option = yes_no_unsure_options
+  label  = 'Do you run scalable workflows on AnVIL (e.g., WDL)?',
+  option = yes_no_na_options
 )
 
 sd_question(
@@ -626,10 +679,10 @@ sd_question(
 sd_question(
   type   = 'mc_multiple',
   id     = 'anvil_data_type',
-  label  = 'Do you access raw data (e.g., sequencing reads) or summarized data (e.g., count tables, variant calls, etc.)? (select all that apply)',
+  label  = 'Do you access raw data (e.g., sequencing reads) or processed / summarized data (e.g., alignments, count tables, variant calls, etc.) on the AnVIL? (select all that apply)',
   option = c(
     'Raw data' = 'raw',
-    'Summarized data' = 'summarized'
+    'Processed / Summarized data' = 'summarized'
   )
 )
 
@@ -671,8 +724,8 @@ sd_question(
 sd_question(
   type = 'mc',
   id = 'services_use',
-  label = 'Do you use data services (e.g., All of Us + AnVIL Imputation)?',
-  option = yes_no_options
+  label = 'Do you use data services on the AnVIL (e.g., *seqr* on AnVIL or All of Us + AnVIL Imputation)?',
+  option = yes_no_na_options
 )
 
 sd_question(
@@ -702,8 +755,8 @@ sd_nav(page_next = 'page7')
 sd_question(
   type   = 'mc',
   id     = 'use_supervise',
-  label  = 'Do you supervise (e.g., plan and monitor) the use of the AnVIL platform by others rather than only running analyses or submitting data yourself?',
-  option = yes_no_options
+  label  = 'Do you supervise (e.g., plan and monitor) the use of the AnVIL platform by others (rather than only running analyses or submitting data yourself)?',
+  option = yes_no_na_options
 )
 
 sd_question(
@@ -746,7 +799,7 @@ sd_question(
   type   = 'mc',
   id     = 'use_ed',
   label  = 'Do you use the AnVIL platform for training or courses that you are leading?',
-  option = yes_no_options
+  option = yes_no_na_options
 )
 
 sd_question(
