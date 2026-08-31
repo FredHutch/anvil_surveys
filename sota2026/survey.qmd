@@ -14,17 +14,17 @@ theme-settings:
 
 survey-settings:
   mode: database
-  show-previous: true
+  show-previous: yes
   start-page: welcome
-  use-cookies: false #update after building
-  auto-scroll: false
-  rate-survey: false
+  use-cookies: yes
+  auto-scroll: yes
+  rate-survey: no
   system-language: en
-  highlight-unanswered: true
+  highlight-unanswered: yes
   highlight-color: grey
-  capture-metadata: true
-  all-required: false
-  all-shuffled: false
+  capture-metadata: yes
+  all-required: no
+  all-shuffled: no
   required:
     - consent
     - role
