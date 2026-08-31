@@ -17,7 +17,7 @@ survey-settings:
   show-previous: yes
   start-page: welcome
   use-cookies: yes
-  auto-scroll: yes
+  auto-scroll: no
   rate-survey: no
   system-language: en
   highlight-unanswered: yes
