@@ -16,7 +16,7 @@ survey-settings:
   mode: database
   show-previous: true
   start-page: welcome
-  use-cookies: false #update after building
+  use-cookies: true
   auto-scroll: false
   rate-survey: false
   system-language: en
