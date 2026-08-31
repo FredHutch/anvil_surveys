@@ -9,14 +9,14 @@ include-in-header:
 theme-settings:
   theme: style.scss
   barposition: top
-  footer-left: 'Made with [surveydown](https://surveydown.org)'
-  footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/fhdsl/anvil_surveys/tree/sota2026)'
+  footer-left: '<a href="https://surveydown.org" target="_blank">surveydown</a>'
+  footer-right: '<a href="https://github.com/FredHutch/anvil_surveys/tree/main/sota2026" target="_blank"><i class="bi bi-github"></i> Source Code</a>'
 
 survey-settings:
   mode: database
   show-previous: true
   start-page: welcome
-  use-cookies: false #update after building
+  use-cookies: true
   auto-scroll: false
   rate-survey: false
   system-language: en
@@ -192,7 +192,7 @@ system("pandoc survey.html -o sota2026.docx")
 
 Thank you for participating in the State of the AnVIL 2026 Community Poll!
 
-[AnVIL](https://anvilproject.org/) (the NHGRI Genomic Data Science Analysis, Visualization, and Informatics Lab-space) is a unified environment for secure data management and computing. It enables cloud-based analysis of large datasets directly in place, without the need to transfer that data elsewhere.
+<a href="https://anvilproject.org/" target="_blank">AnVIL</a> (the NHGRI Genomic Data Science Analysis, Visualization, and Informatics Lab-space) is a unified environment for secure data management and computing. It enables cloud-based analysis of large datasets directly in place, without the need to transfer that data elsewhere.
 
 This poll aims to understand your experience with the AnVIL platform, including your needs and any barriers to adoption, by collecting data on usage, experiences, and preferences. It should take 10–15 minutes to complete.
 
@@ -552,7 +552,7 @@ sd_question(
 sd_question(
   type   = 'mc',
   id     = 'use_data_dict',
-  label  = 'Have you submitted a data dictionary to the AnVIL [following the revised 09-2025 Data Model process](https://anvilproject.org/learn/data-submitters/submission-guide/set-up-a-data-model)?',
+  label  = 'Have you submitted a data dictionary to the AnVIL <a href="https://anvilproject.org/learn/data-submitters/submission-guide/set-up-a-data-model" target="_blank">following the revised 09-2025 Data Model process</a>?',
   option = yes_no_unsure_options
 )
 
