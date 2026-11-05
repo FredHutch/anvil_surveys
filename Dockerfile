@@ -14,13 +14,14 @@ COPY sota2026/renv.lock /apps/sota2026/renv.lock
 
 WORKDIR /apps/sota2026
 
-RUN R -e 'renv::restore(prompt = FALSE)'
+
+RUN R -e 'install.packages(c("xfun", "bslib", "dotenv", "shinyWidgets", "rsconnect", "quarto", "shiny", "pool", "RPostgres", "surveydown", "pak", "knitr", "pagedown"))'
 
 WORKDIR /apps
 
 # TODO, install subsequent apps
 
-RUN R -f /tmp/check.R --args renv
+RUN R -f /tmp/check.R --args renv xfun bslib dotenv shinyWidgets rsconnect quarto shiny pool RPostgres surveydown pak knitr pagedown
 
 RUN rm -f /etc/nginx/sites-enabled/default /etc/nginx/conf.d/default.conf /etc/nginx/sites-available/default
 COPY ./nginx.conf /etc/nginx/nginx.conf
